@@ -1,0 +1,14 @@
+<p><b>Players:</b></p>
+<ng-container *ngFor="let player of players; let i = index; trackBy: indexTracker">
+  <input required [name]="'player_' + i" [(ngModel)]="players[i]">
+  <ng-container *ngIf="players.length > 1">
+    <button (click)="removePlayer(i)"> - </button>
+  </ng-container>
+  <br>
+</ng-container>
+<br>
+<ng-container *ngIf="players.length < maxPlayersNumber">
+  <button (click)="addPlayer()"> + </button>
+</ng-container>
+<br>
+
