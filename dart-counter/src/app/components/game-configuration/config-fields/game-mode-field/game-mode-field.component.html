@@ -1,6 +1,0 @@
-<p><b>Points mode:</b></p>
-<div *ngFor="let gameMode of gamePointsModes">
-  <label for="game-mode-{{gameMode}}" (change)="onChangeEvent()">
-    <input id="game-mode-{{gameMode}}" value={{gameMode}} type="radio" name="enums" [(ngModel)]="selectedGamePointsMode">{{gameMode}}
-  </label>
-</div>
