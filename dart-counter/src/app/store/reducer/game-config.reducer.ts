@@ -23,12 +23,23 @@ export const initialState: GameConfigState = {
 export const gameConfigReducer = createReducer(
   initialState,
   on(GameConfigActions.setPointsGameMode,
-    (state: GameConfigState, {pointsMode}) => 
-      ({...state,
+    (gameConfigState: GameConfigState, {pointsMode}) => 
+      ({...gameConfigState,
         points: pointsMode
       })
   ),
-  
+  on(GameConfigActions.setLegsGameMode, 
+    (gameConfigState: GameConfigState, {legsMode}) =>
+      ({...gameConfigState,
+        legs: legsMode
+      })
+  ),
+  on(GameConfigActions.setSetsGameMode, 
+    (gameConfigState: GameConfigState, {setsMode}) =>
+      ({...gameConfigState,
+        sets: setsMode
+      })
+  )
 );
 
 export function reducer(state: GameConfigState | undefined, action: Action): any {

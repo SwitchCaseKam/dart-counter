@@ -1,13 +1,13 @@
 <p><b>Legs:</b></p>
-<select name="legs" id="select-legs-mode">
+<select name="legs" id="select-legs-mode" (change)="onChangeEvent()" [(ngModel)]="selectedLegsMode">
     <optgroup label="First to">
         <ng-container *ngFor="let j of legsMode.slice(0,21)">
-            <option>{{j.targetNumber}} legs</option>
+            <option [ngValue]="j">{{j.targetNumber}} legs</option>
         </ng-container>
     </optgroup>
     <optgroup label="Best of">
         <ng-container *ngFor="let i of legsMode.slice(21)">
-            <option>{{i.targetNumber}} legs</option>
+            <option [ngValue]="i">{{i.targetNumber}} legs</option>
         </ng-container>
     </optgroup>
 </select>

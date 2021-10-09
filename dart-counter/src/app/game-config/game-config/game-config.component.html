@@ -1,12 +1,22 @@
 <h2>Game configuration</h2>
 
 <app-points-config-field></app-points-config-field>
-<app-legs-config-field></app-legs-config-field>
 <app-sets-config-field></app-sets-config-field>
+<app-legs-config-field></app-legs-config-field>
 <app-players-config-field></app-players-config-field>
 <br>
 
 
 <p><b>Points mode :</b> {{ pointsMode | async }}</p>
+
+<p *ngIf="setsField | async as sets">
+    <b>Sets :</b> {{ sets.mode }} {{ sets.targetNumber }}
+</p>
+
+<p *ngIf="legsField | async as legs">
+    <b>Legs :</b> {{ legs.mode }} {{ legs.targetNumber }}
+</p>
+
+
 
 <button>Start game</button>

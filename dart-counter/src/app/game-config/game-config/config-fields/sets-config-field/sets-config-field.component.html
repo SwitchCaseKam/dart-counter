@@ -1,13 +1,13 @@
 <p><b>Sets:</b></p>
-<select name="sets" id="select-sets-mode">
+<select name="sets" id="select-sets-mode"  (change)="onChangeEvent()" [(ngModel)]="selectedSetsMode">
     <optgroup label="First to">
         <ng-container *ngFor="let j of setsMode.slice(0, 21)">
-            <option>{{j.targetNumber}} sets</option>
+            <option [ngValue]="j">{{j.targetNumber}} sets</option>
         </ng-container>
     </optgroup>
     <optgroup label="Best of">
         <ng-container *ngFor="let i of setsMode.slice(21)">
-            <option>{{i.targetNumber}} sets</option>
+            <option [ngValue]="i">{{i.targetNumber}} sets</option>
         </ng-container>
     </optgroup>
 </select>

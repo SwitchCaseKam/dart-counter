@@ -9,3 +9,13 @@ export const selectPointsMode = createSelector(
     selectGameConfigState,
     (gameConfigState: fromGameConfig.GameConfigState) => gameConfigState.points
 );
+
+export const selectLegsMode = createSelector(
+    selectGameConfigState,
+    (gameConfigState: fromGameConfig.GameConfigState) => gameConfigState.legs
+);
+
+export const selectSetsMode = createSelector(
+    selectGameConfigState,
+    (gameConfigState: fromGameConfig.GameConfigState) => gameConfigState.sets
+);

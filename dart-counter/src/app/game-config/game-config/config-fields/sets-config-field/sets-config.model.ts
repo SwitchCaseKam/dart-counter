@@ -4,6 +4,6 @@ export interface SetsField {
 }
 
 export enum SetsMode {
-    BestOf,
-    FirstTo
+    BestOf = "Best of",
+    FirstTo = "First to"
 }
