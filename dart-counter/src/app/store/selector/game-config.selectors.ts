@@ -19,3 +19,8 @@ export const selectSetsMode = createSelector(
     selectGameConfigState,
     (gameConfigState: fromGameConfig.GameConfigState) => gameConfigState.sets
 );
+
+export const selectPlayersNames = createSelector(
+    selectGameConfigState,
+    (gameConfigState: fromGameConfig.GameConfigState) => gameConfigState.players
+);

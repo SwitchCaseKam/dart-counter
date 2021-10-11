@@ -17,6 +17,11 @@
     <b>Legs :</b> {{ legs.mode }} {{ legs.targetNumber }}
 </p>
 
+<b>Players:</b>
+<p *ngFor="let player of players | async;  let i=index">
+    <b>{{ i+1 }}</b>. {{ player }}
+</p>
+
 
 
 <button>Start game</button>
