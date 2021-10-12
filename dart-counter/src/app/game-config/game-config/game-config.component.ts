@@ -6,7 +6,6 @@ import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
 import * as GameConfigSelectors from 'src/app/store/selector/game-config.selectors';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 import { LegsField } from './config-fields/legs-config-field/legs-config.model';
-import { Player } from './config-fields/players-config-field/player.model';
 import { SetsField } from './config-fields/sets-config-field/sets-config.model';
 
 @Component({

@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { LegsField } from 'src/app/game-config/game-config/config-fields/legs-config-field/legs-config.model';
-import { Player } from 'src/app/game-config/game-config/config-fields/players-config-field/player.model';
 import { SetsField } from 'src/app/game-config/game-config/config-fields/sets-config-field/sets-config.model';
 
 const actionPrefix = '[GameConfig]';
