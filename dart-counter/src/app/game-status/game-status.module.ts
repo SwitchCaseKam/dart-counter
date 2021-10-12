@@ -1,12 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { GameStatusComponent } from './game-status/game-status.component';
+import { PlayerInfoComponent } from './game-status/player-info/player-info.component';
+import { StatsComponent } from './game-status/player-info/stats/stats.component';
+import { PointsComponent } from './game-status/player-info/points/points.component';
+import { GameInfoHeaderComponent } from './game-status/game-info-header/game-info-header.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    GameStatusComponent,
+    PlayerInfoComponent,
+    StatsComponent,
+    PointsComponent,
+    GameInfoHeaderComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule, AppRoutingModule
   ]
 })
 export class GameStatusModule { }

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GameConfigState } from 'src/app/store/reducer/game-config.reducer';
-import * as GameConfigActions from 'src/app/store/selector/game-config.selectors';
+import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
+import * as GameConfigSelectors from 'src/app/store/selector/game-config.selectors';
+import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 import { LegsField } from './config-fields/legs-config-field/legs-config.model';
 import { Player } from './config-fields/players-config-field/player.model';
 import { SetsField } from './config-fields/sets-config-field/sets-config.model';
@@ -19,14 +21,24 @@ export class GameConfigComponent implements OnInit {
   setsField: Observable<SetsField>;
   players: Observable<string[]>;
 
-  constructor(private store: Store<GameConfigState>) {
-    this.pointsMode = this.store.pipe(select(GameConfigActions.selectPointsMode));
-    this.legsField = this.store.pipe(select(GameConfigActions.selectLegsMode));
-    this.setsField = this.store.pipe(select(GameConfigActions.selectSetsMode));
-    this.players = this.store.pipe(select(GameConfigActions.selectPlayersNames));
+  private componentTag = '[GCC]';
+
+  constructor(
+    private gameConfigStore: Store<GameConfigState>,
+    private gameStatusStore: Store<GameStatusState>,
+  ) {
+    this.pointsMode = this.gameConfigStore.pipe(select(GameConfigSelectors.selectPointsMode));
+    this.legsField = this.gameConfigStore.pipe(select(GameConfigSelectors.selectLegsMode));
+    this.setsField = this.gameConfigStore.pipe(select(GameConfigSelectors.selectSetsMode));
+    this.players = this.gameConfigStore.pipe(select(GameConfigSelectors.selectPlayersNames));
   }
 
   public ngOnInit(): void {
+  }
+
+  public startGame(): void {
+    console.log(`${this.componentTag}: game started with parameters: ${this.pointsMode}, ${this.legsField}, ${this.setsField}, ${this.players}`);
+    this.gameStatusStore.dispatch(GameStatusActions.startGame());
   }
 
 }

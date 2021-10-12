@@ -7,6 +7,9 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { GameConfigModule } from './game-config/game-config.module';
+import { AppRoutingModule } from './app-routing.module';
+import { GameStatusModule } from './game-status/game-status.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,8 +19,10 @@ import { GameConfigModule } from './game-config/game-config.module';
   imports: [
     BrowserModule,
     GameConfigModule,
+    GameStatusModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,6 +8,7 @@ import { PlayersConfigFieldComponent } from './game-config/config-fields/players
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { gameConfigFeatureKey, reducer } from '../store/reducer/game-config.reducer';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { gameConfigFeatureKey, reducer } from '../store/reducer/game-config.redu
     CommonModule,
     FormsModule,
     StoreModule.forFeature(gameConfigFeatureKey, reducer),
+    AppRoutingModule
   ],
   exports: [
     GameConfigComponent
