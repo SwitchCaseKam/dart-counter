@@ -12,5 +12,5 @@ export const setLegsGameMode = createAction(`${actionPrefix} Set Legs Game Mode`
 export const setSetsGameMode = createAction(`${actionPrefix} Set Sets Game Mode`, (setsMode: SetsField) => ({setsMode}));
 
 export const addPlayer = createAction(`${actionPrefix} Add player`, (playerName: string) => ({playerName}));
-export const deletePlayer = createAction(`${actionPrefix} Delete player`);
+export const deletePlayer = createAction(`${actionPrefix} Delete player`, (playerName: string) => ({playerName}));
 export const updatePlayers = createAction(`${actionPrefix} Update players`, (players: string[]) => ({players}));

@@ -1,14 +1,15 @@
 <p><b>Players:</b></p>
-<ng-container *ngFor="let player of players; let i = index; trackBy: indexTracker">
-    {{ player }}
-  <ng-container *ngIf="players.length > 1">
-    <button (click)="removePlayer(i)"> - </button>
-  </ng-container>
-  <br>
+<ng-container *ngIf="canAddAnotherPlayer">
+  <input required [(ngModel)]="currentPlayerName">
+  <button (click)="addPlayer()"> + </button>
 </ng-container>
 <br>
-<ng-container *ngIf="canAddAnotherPlayer">
-    <input required [(ngModel)]="currentPlayerName">
-    <button (click)="addPlayer()"> + </button>
+
+<ng-container *ngFor="let playerName of players; let i = index">
+    {{ i+1 }}. <b>{{ playerName }}</b>
+  <ng-container *ngIf="players.length > 0">
+    <button (click)="removePlayer(playerName)"> - </button>
+  </ng-container>
+  <br>
 </ng-container>
 <br>
