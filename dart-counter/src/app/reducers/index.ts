@@ -20,5 +20,8 @@ export const reducers: ActionReducerMap<State> = {
   status: gameStatusReducer
 };
 
+export const selectGameConfig = (state: State) => state.config;
+
+export const selectGameStatus = (state: State) => state.status;
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];

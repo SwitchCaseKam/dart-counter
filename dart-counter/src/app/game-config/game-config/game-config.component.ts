@@ -20,6 +20,8 @@ export class GameConfigComponent implements OnInit {
   setsField: Observable<SetsField>;
   players: Observable<string[]>;
 
+  private playersNames: string[] = [];
+
   private componentTag = '[GCC]';
 
   constructor(
@@ -30,6 +32,11 @@ export class GameConfigComponent implements OnInit {
     this.legsField = this.gameConfigStore.pipe(select(GameConfigSelectors.selectLegsMode));
     this.setsField = this.gameConfigStore.pipe(select(GameConfigSelectors.selectSetsMode));
     this.players = this.gameConfigStore.pipe(select(GameConfigSelectors.selectPlayersNames));
+    this.gameConfigStore.pipe(select(GameConfigSelectors.selectPlayersNames)).subscribe(
+      players => {
+        this.playersNames = players;
+      }
+    )
   }
 
   public ngOnInit(): void {
@@ -37,7 +44,7 @@ export class GameConfigComponent implements OnInit {
 
   public startGame(): void {
     console.log(`${this.componentTag}: game started with parameters: ${this.pointsMode}, ${this.legsField}, ${this.setsField}, ${this.players}`);
-    this.gameStatusStore.dispatch(GameStatusActions.startGame());
+    this.gameStatusStore.dispatch(GameStatusActions.startGame(this.playersNames));
   }
 
 }

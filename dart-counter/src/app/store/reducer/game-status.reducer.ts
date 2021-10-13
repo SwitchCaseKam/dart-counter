@@ -16,10 +16,9 @@ export const initialState: GameStatusState = {
 export const gameStatusReducer = createReducer(
   initialState,
   on(GameStatusActions.startGame,
-    (gameStatusState: GameStatusState) => 
+    (gameStatusState: GameStatusState, {playersNames}) =>
       ({...gameStatusState,
-        
-        
+          players: createPlayers(playersNames)
       })
   ),
 );
@@ -30,6 +29,8 @@ export function reducer(state: GameStatusState | undefined, action: Action): any
 
 
 
-function createPlayers(): void {
-  
+function createPlayers(playersNames: string[]): Player[] {
+  let players: Player[] = [];
+  playersNames.forEach(playerName => players.push(new Player(playerName, 501)));
+  return players;
 }

@@ -9,7 +9,8 @@ import { environment } from '../environments/environment';
 import { GameConfigModule } from './game-config/game-config.module';
 import { AppRoutingModule } from './app-routing.module';
 import { GameStatusModule } from './game-status/game-status.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { StateEffects } from './store/effects/state.effects';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     GameStatusModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    AppRoutingModule
+    AppRoutingModule,
+    EffectsModule.forRoot([StateEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
