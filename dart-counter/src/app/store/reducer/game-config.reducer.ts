@@ -54,7 +54,7 @@ export const gameConfigReducer = createReducer(
   ),
 );
 
-export function reducer(state: GameConfigState | undefined, action: Action): any {
+export function configReducer(state: GameConfigState | undefined, action: Action): any {
   return gameConfigReducer(state, action);
 }
 

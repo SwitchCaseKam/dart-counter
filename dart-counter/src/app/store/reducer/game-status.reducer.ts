@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Player } from 'src/app/models/player.model';
 import * as GameStatusActions from '../action/game-status.actions';
+import { GameConfigState } from './game-config.reducer';
 
 export const gameStatusFeatureKey = 'gameStatus';
 
@@ -16,21 +17,40 @@ export const initialState: GameStatusState = {
 export const gameStatusReducer = createReducer(
   initialState,
   on(GameStatusActions.startGame,
-    (gameStatusState: GameStatusState, {playersNames}) =>
+    (gameStatusState: GameStatusState, {gameConfig}) =>
       ({...gameStatusState,
-          players: createPlayers(playersNames)
+          players: createPlayers(gameConfig)
       })
   ),
+  // on(GameStatusActions.submitPoints,
+  //   (gameStatusState: GameStatusState, {name, points}) =>
+  //     ({...gameStatusState,
+  //       players: gameStatusState.players.map(pl => ({
+  //         ...pl,
+  //         currentPoints: 501
+  //       }))
+  //     })
+  // ),
 );
 
-export function reducer(state: GameStatusState | undefined, action: Action): any {
+export function statusReducer(state: GameStatusState | undefined, action: Action): any {
   return gameStatusReducer(state, action);
 }
 
-
-
-function createPlayers(playersNames: string[]): Player[] {
+function createPlayers(gameConfig: GameConfigState): Player[] {
   let players: Player[] = [];
-  playersNames.forEach(playerName => players.push(new Player(playerName, 501)));
+  gameConfig.players.forEach(playerName => players.push(new Player(playerName, gameConfig.points)));
   return players;
 }
+
+// function updatePoints(gameStatusState: GameStatusState, name: string, points: number): Player[] {
+  
+//   let players: Player[] = [];
+//   players.concat(gameStatusState.players);
+//   players.forEach(player => {
+//     if (player.name === name) {
+//       player.setCurrentPoints(player.currentPoints - points);
+//     }
+//   });
+//   return players;
+// }

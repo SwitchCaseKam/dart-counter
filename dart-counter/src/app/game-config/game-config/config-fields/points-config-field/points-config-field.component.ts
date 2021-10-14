@@ -21,7 +21,7 @@ export class PointsConfigFieldComponent implements OnInit {
   }
 
   public onChangeEvent(): void {
-    console.log(`${this.componentTag}: selected points mode is ${this.selectedPointsMode}`);
+    console.log(`${this.componentTag} selected points mode is ${this.selectedPointsMode}`);
     this.store.dispatch(setPointsGameMode(this.selectedPointsMode))
   }
 

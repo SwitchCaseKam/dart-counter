@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Player } from 'src/app/models/player.model';
-import { selectGameConfig, selectGameStatus, State } from 'src/app/reducers';
-import { GameConfigState } from 'src/app/store/reducer/game-config.reducer';
-import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
+import { selectGameStatus, State } from 'src/app/reducers';
 
 @Component({
   selector: 'app-game-status',
@@ -23,7 +21,7 @@ export class GameStatusComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.gameStatusSubscription = this.store.pipe(select(selectGameStatus)).subscribe(
       gameStatus => {
-        console.log(`${this.componentTag}: gameStatus ${JSON.stringify(gameStatus.players)}`);
+        console.log(`${this.componentTag} game started with parameters: ${JSON.stringify(gameStatus.players)} points`);
         this.players = gameStatus.players;
       }
     );

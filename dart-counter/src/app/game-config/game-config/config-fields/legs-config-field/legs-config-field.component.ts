@@ -24,7 +24,7 @@ export class LegsConfigFieldComponent implements OnInit {
   }
 
   public onChangeEvent(): void {
-    console.log(`${this.componentTag}: selected legs mode is ${this.selectedLegsMode.mode} ${this.selectedLegsMode.targetNumber}`);
+    console.log(`${this.componentTag} selected legs mode is ${this.selectedLegsMode.mode} ${this.selectedLegsMode.targetNumber}`);
     this.store.dispatch(setLegsGameMode(this.selectedLegsMode));
   }
 }

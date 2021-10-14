@@ -24,7 +24,7 @@ export class SetsConfigFieldComponent implements OnInit {
   }
 
   public onChangeEvent(): void {
-    console.log(`${this.componentTag}: selected sets mode is ${this.selectedSetsMode.mode} ${this.selectedSetsMode.targetNumber}`);
+    console.log(`${this.componentTag} selected sets mode is ${this.selectedSetsMode.mode} ${this.selectedSetsMode.targetNumber}`);
     this.store.dispatch(setSetsGameMode(this.selectedSetsMode));
   }
 }

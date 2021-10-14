@@ -1,4 +1,4 @@
-Points: <b>501</b> 
+Points: <b>{{ points }}</b> 
 <br>
-<input>
+<input id={{name}}-input-field type="number" [(ngModel)]="scoredPoints" (keydown.enter)="submitPoints()">
 <br>

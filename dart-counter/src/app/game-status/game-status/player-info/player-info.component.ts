@@ -12,7 +12,8 @@ export class PlayerInfoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+
   }
 
 }

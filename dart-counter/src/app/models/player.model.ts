@@ -10,4 +10,8 @@ export class Player {
         this.legs = legs;
         this.sets = sets;
     }
+
+    public setCurrentPoints(points: number) {
+        this.currentPoints = points;
+    }
 }

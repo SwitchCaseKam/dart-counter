@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { addPlayer, deletePlayer } from 'src/app/store/action/game-config.actions';
 import { GameConfigState } from 'src/app/store/reducer/game-config.reducer';
-import * as GameConfigActions from 'src/app/store/selector/game-config.selectors';
+import * as GameConfigSelectors from 'src/app/store/selector/game-config.selectors';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -31,17 +31,17 @@ export class PlayersConfigFieldComponent implements OnInit, OnDestroy {
   }
 
   public addPlayer(): void {
-    console.log(`${this.componentTag}: added player with name ${this.currentPlayerName}`);
+    console.log(`${this.componentTag} added player with name ${this.currentPlayerName}`);
     this.store.dispatch(addPlayer(this.currentPlayerName));
   }
 
   public removePlayer(playerName: string): void {
-    console.log(`${this.componentTag}: deleted player with name ${this.currentPlayerName}`);
+    console.log(`${this.componentTag} deleted player with name ${playerName}`);
     this.store.dispatch(deletePlayer(playerName));
   }
 
   private subscribeToPlayersInStore() {
-    this.playersNamesSubscription = this.store.pipe(select(GameConfigActions.selectPlayersNames)).subscribe(
+    this.playersNamesSubscription = this.store.pipe(select(GameConfigSelectors.selectPlayersNames)).subscribe(
       (playersInGame: string[]) => {
         this.canAddAnotherPlayer = playersInGame.length >= this.maxPlayersNumber ? false : true;
         this.players = playersInGame;

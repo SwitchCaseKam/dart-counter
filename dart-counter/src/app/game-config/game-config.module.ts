@@ -7,8 +7,9 @@ import { PointsConfigFieldComponent } from './game-config/config-fields/points-c
 import { PlayersConfigFieldComponent } from './game-config/config-fields/players-config-field/players-config-field.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { gameConfigFeatureKey, reducer } from '../store/reducer/game-config.reducer';
+import { gameConfigFeatureKey, configReducer } from '../store/reducer/game-config.reducer';
 import { AppRoutingModule } from '../app-routing.module';
+import { gameStatusFeatureKey, statusReducer } from '../store/reducer/game-status.reducer';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppRoutingModule } from '../app-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    StoreModule.forFeature(gameConfigFeatureKey, reducer),
+    StoreModule.forFeature(gameConfigFeatureKey, configReducer),
+    StoreModule.forFeature(gameStatusFeatureKey, statusReducer),
     AppRoutingModule
   ],
   exports: [
