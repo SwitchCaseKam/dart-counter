@@ -1,20 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { GameConfigurationComponent } from './components/game-configuration/game-configuration.component';
-import { GameStatusComponent } from './components/game-status/game-status.component';
 
 const routes: Routes = [
-  { path: 'game', component: GameStatusComponent },
-  { path: '**', component: GameConfigurationComponent }
+  { path: 'game-config', loadChildren: () => import('./game-config/game-config.module').then(m => m.GameConfigModule) }
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes),
-    CommonModule
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

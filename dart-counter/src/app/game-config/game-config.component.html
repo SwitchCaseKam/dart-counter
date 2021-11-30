@@ -1,0 +1,44 @@
+<h3>Game configuration</h3>
+
+<form [formGroup]="configurationForm" (ngSubmit)="startGame(configurationForm.value)">
+    <h3>points</h3>
+    <mat-radio-group required aria-label="Select an option" formControlName="points">
+        <div *ngFor="let pointsMode of points">
+            <mat-radio-button value="{{pointsMode}}">{{pointsMode}}</mat-radio-button>
+            <br>
+        </div>
+    </mat-radio-group>
+    <mat-form-field>
+        <h3>legs</h3>
+        <mat-select class="select-field" formControlName="legs">
+            <mat-option *ngFor="let legsMode of legs" [value]="legsMode">
+                {{legsMode.mode}} {{legsMode.value}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <h3>sets</h3>
+        <mat-select class="select-field" formControlName="sets">
+            <mat-option *ngFor="let setsMode of sets" [value]="setsMode">
+                {{setsMode.mode}} {{setsMode.value}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <div formArrayName="players">
+        <h3>players</h3>
+        <div *ngFor="let player of getPlayers().controls; let i=index" [formGroupName]="i">
+            <mat-form-field>
+                <input type="text" formControlName="name" matInput>
+                <button mat-button color="primary" class="button-section" (click)="addPlayer()">-</button>
+            </mat-form-field>
+        </div>
+    </div> 
+
+    <button mat-button color="primary" class="button-section" (click)="addPlayer()">+</button>
+    <br>
+    <button mat-button color="primary" class="button-section" type="submit">Start game</button>
+
+
+</form>

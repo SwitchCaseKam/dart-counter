@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/dart-counter'),
+      dir: require('path').join(__dirname, './coverage/dart-scores-counter'),
       subdir: '.',
       reporters: [
         { type: 'html' },
