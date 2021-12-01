@@ -1,7 +1,19 @@
+#addPlayerButton {
+    background-color: greenyellow;
+}
+
+#removePlayerButton {
+    background-color: red;
+    color: white;
+}
+
 .button-section {
     border: 1px solid black;
 }
 
-.player-input {
-    border: 1px solid black;
+.game-configuration-area {
+    margin: 1%;
+    padding: 2%;
+    border-radius: 8%;
+    display: inline-block;
 }

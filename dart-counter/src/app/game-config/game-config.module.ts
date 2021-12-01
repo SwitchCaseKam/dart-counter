@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatListModule,
     MatSelectModule,
+    MatButtonModule,
   ]
 })
 export class GameConfigModule { }

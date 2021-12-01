@@ -37,8 +37,11 @@ export class GameConfigComponent implements OnInit {
   public addPlayer(): void {
     this.getPlayers().push(this.formBuilder.group({
       name: '',
-    }))
+    }));
+  }
 
+  public removePlayer(index: number): void {
+    this.getPlayers().removeAt(index);
   }
 
   public getPlayers(): FormArray {
