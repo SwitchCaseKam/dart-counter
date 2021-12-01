@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { selectGameConfig, State } from '../reducers';
+import { selectGameConfig, selectGameStatus, State } from '../reducers';
 import * as GameConfigurationConsts from './models/game-configuration.models';
 import * as GameConfigActions from 'src/app/store/action/game-config.actions';
+import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 import * as GameConfigSelectors from 'src/app/store/selector/game-config.selectors';
 import { GameConfig } from '../models/game-config.model';
 
@@ -40,6 +41,7 @@ export class GameConfigComponent implements OnInit {
 
   public startGame(config: any): void {
     this.gameStore.dispatch(GameConfigActions.startGame(config as GameConfig));
+    this.gameStore.dispatch(GameStatusActions.createPlayers(config as GameConfig));
   }
 
   public addPlayer(): void {
@@ -60,7 +62,12 @@ export class GameConfigComponent implements OnInit {
   public getStore(): void {
     this.gameStore.pipe(select(selectGameConfig)).subscribe(
       (gameConfig) => {
-        console.log('from store: ', gameConfig)
+        console.log('config from store: ', gameConfig)
+      });
+
+    this.gameStore.pipe(select(selectGameStatus)).subscribe(
+      (gameStatus) => {
+        console.log('status from store: ', gameStatus)
       });
   }
 
