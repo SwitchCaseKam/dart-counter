@@ -41,5 +41,8 @@
         </div> 
         <br>
         <button id="startGameButton" [disabled]="getPlayers().controls.length === 0" mat-button color="primary" class="button-section" type="submit">Start game</button>
+
+        <button id="addPlayerButton" mat-button color="primary" class="button-section" (click)="getStore()">get store</button>
+            
     </form>
 </div>

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import * as gameConfigurationConsts from './models/game-configuration.models';
+import { select, Store } from '@ngrx/store';
+import { selectGameConfig, State } from '../reducers';
+import * as GameConfigurationConsts from './models/game-configuration.models';
+import * as GameConfigActions from 'src/app/store/action/game-config.actions';
+import * as GameConfigSelectors from 'src/app/store/selector/game-config.selectors';
+import { GameConfig } from '../models/game-config.model';
 
 @Component({
   selector: 'app-game-config',
@@ -10,11 +15,14 @@ import * as gameConfigurationConsts from './models/game-configuration.models';
 export class GameConfigComponent implements OnInit {
 
   public configurationForm: FormGroup = new FormGroup({});
-  public points = gameConfigurationConsts.pointsMode;
-  public legs = gameConfigurationConsts.legsMode;
-  public sets = gameConfigurationConsts.setsMode;
+  public points = GameConfigurationConsts.pointsMode;
+  public legs = GameConfigurationConsts.legsMode;
+  public sets = GameConfigurationConsts.setsMode;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private gameStore: Store<State>
+  ) { }
 
   public ngOnInit(): void {
     console.log(this.legs)
@@ -31,7 +39,7 @@ export class GameConfigComponent implements OnInit {
   }
 
   public startGame(config: any): void {
-    console.log('startGame clicked: ', config)
+    this.gameStore.dispatch(GameConfigActions.startGame(config as GameConfig));
   }
 
   public addPlayer(): void {
@@ -48,5 +56,12 @@ export class GameConfigComponent implements OnInit {
     return this.configurationForm.get('players') as FormArray;
   }
 
+
+  public getStore(): void {
+    this.gameStore.pipe(select(selectGameConfig)).subscribe(
+      (gameConfig) => {
+        console.log('from store: ', gameConfig)
+      });
+  }
 
 }

@@ -1,6 +1,6 @@
 export const pointsMode = ['101', '301', '501', '701', '1001'];
 
-const enum FinishMode {
+export const enum FinishMode {
     FIRST_TO = 'first to',
     BEST_OF = 'best of',
 }
