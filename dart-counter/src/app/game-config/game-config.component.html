@@ -4,7 +4,7 @@
         <h3>points</h3>
         <mat-radio-group required aria-label="Select an option" formControlName="points">
             <!-- <div *ngFor="let pointsMode of points"> -->
-                <mat-radio-button *ngFor="let pointsMode of points" value="{{pointsMode}}">{{pointsMode}} </mat-radio-button>
+                <mat-radio-button *ngFor="let pointsMode of points" value={{pointsMode}}>{{pointsMode}} </mat-radio-button>
                 <!-- <br> -->
             <!-- </div> -->
         </mat-radio-group>
@@ -40,9 +40,6 @@
     
         </div> 
         <br>
-        <button id="startGameButton" [disabled]="getPlayers().controls.length === 0" mat-button color="primary" class="button-section" type="submit">Start game</button>
-
-        <button id="addPlayerButton" mat-button color="primary" class="button-section" (click)="getStore()">get store</button>
-            
+        <button id="startGameButton" [disabled]="getPlayers().controls.length === 0" mat-button color="primary" class="button-section" type="submit" routerLink="../game-status">Start game</button>
     </form>
 </div>
