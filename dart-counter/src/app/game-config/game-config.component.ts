@@ -58,7 +58,7 @@ export class GameConfigComponent implements OnInit {
   }
 
   private subscribeToPlayersForm(): void {
-    this.configurationForm.valueChanges.pipe(debounceTime(1000),).subscribe(
+    this.configurationForm.valueChanges.pipe(debounceTime(600),).subscribe(
       gameConfigurationFormValue => { this.gameConfig = gameConfigurationFormValue as GameConfig;}
     );
   }
