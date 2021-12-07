@@ -6,6 +6,7 @@ import * as GameConfigurationConsts from './models/game-configuration.models';
 import * as GameConfigActions from 'src/app/store/action/game-config.actions';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 import { GameConfig } from '../models/game-config.model';
+import { debounceTime, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game-config',
@@ -18,6 +19,7 @@ export class GameConfigComponent implements OnInit {
   public points = GameConfigurationConsts.pointsMode;
   public legs = GameConfigurationConsts.legsMode;
   public sets = GameConfigurationConsts.setsMode;
+  private gameConfig: GameConfig = new GameConfig();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,8 +27,25 @@ export class GameConfigComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    console.log(this.legs)
     this.configurationForm = this.createConfigurationForm();
+    this.subscribeToPlayersForm();
+  }
+
+  public startGame(): void {
+    this.gameStore.dispatch(GameConfigActions.startGame(this.gameConfig));
+    this.gameStore.dispatch(GameStatusActions.createPlayers(this.gameConfig));
+  }
+
+  public addPlayer(): void {
+    this.getPlayersFormArray().push(this.formBuilder.group({name: ''}));
+  }
+
+  public removePlayer(index: number): void {
+    this.getPlayersFormArray().removeAt(index);
+  }
+
+  public getPlayersFormArray(): FormArray {
+    return this.configurationForm.get('players') as FormArray;
   }
 
   private createConfigurationForm(): FormGroup {
@@ -38,38 +57,9 @@ export class GameConfigComponent implements OnInit {
     });
   }
 
-  public startGame(config: any): void {
-    console.log('game started')
-    this.gameStore.dispatch(GameConfigActions.startGame(config as GameConfig));
-    this.gameStore.dispatch(GameStatusActions.createPlayers(config as GameConfig));
+  private subscribeToPlayersForm(): void {
+    this.configurationForm.valueChanges.pipe(debounceTime(1000),).subscribe(
+      gameConfigurationFormValue => { this.gameConfig = gameConfigurationFormValue as GameConfig;}
+    );
   }
-
-  public addPlayer(): void {
-    console.log('add player')
-    this.getPlayers().push(this.formBuilder.group({
-      name: '',
-    }));
-  }
-
-  public removePlayer(index: number): void {
-    this.getPlayers().removeAt(index);
-  }
-
-  public getPlayers(): FormArray {
-    return this.configurationForm.get('players') as FormArray;
-  }
-
-
-  public getStore(): void {
-    this.gameStore.pipe(select(selectGameConfig)).subscribe(
-      (gameConfig) => {
-        console.log('config from store: ', gameConfig)
-      });
-
-    this.gameStore.pipe(select(selectGameStatus)).subscribe(
-      (gameStatus) => {
-        console.log('status from store: ', gameStatus)
-      });
-  }
-
 }

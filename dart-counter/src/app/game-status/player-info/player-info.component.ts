@@ -11,12 +11,15 @@ export class PlayerInfoComponent implements OnInit {
   @Input() public points: string = '';
   @Input() public sets: string = '';
   @Input() public legs: string = '';
-  public currentPoints = 0;
 
   constructor() { }
 
   public ngOnInit(): void {
-    console.log('currentPoints: ', this.currentPoints)
+
   }
 
+  public updateCurrentPoints(scoredPoints: number): void {
+    this.points = (Number(this.points) - scoredPoints).toString();
+    console.log('this.currentPoints: ', this.points)
+  }
 }

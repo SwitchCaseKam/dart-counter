@@ -1,7 +1,12 @@
 <div class='player-info'>
-    {{ name }}
+    <h3>{{name}}</h3>
     Legs: {{ legs }}
     Sets: {{ sets }}
     <h2>{{points}}</h2>
-    <input matInput type="number" name="points" [(ngModel)]="currentPoints">
+    <form #form="ngForm">
+        <mat-form-field>
+            <input class="points-input" matInput type="number" name="currentPoints" (keydown.enter)="updateCurrentPoints(form.value.currentPoints)" ngModel>
+        </mat-form-field>
+    </form>
+
 </div>

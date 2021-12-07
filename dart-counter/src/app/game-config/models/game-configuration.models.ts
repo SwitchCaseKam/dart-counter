@@ -1,4 +1,4 @@
-export const pointsMode = ['101', '301', '501', '701', '1001'];
+export const pointsMode = [101, 301, 501, 701, 1001];
 
 export const enum FinishMode {
     FIRST_TO = 'first to',
