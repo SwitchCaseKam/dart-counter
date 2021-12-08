@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { selectGameConfig, selectGameStatus, State } from '../reducers';
+import { Store } from '@ngrx/store';
+import { State } from '../reducers';
 import * as GameConfigurationConsts from './models/game-configuration.models';
 import * as GameConfigActions from 'src/app/store/action/game-config.actions';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
