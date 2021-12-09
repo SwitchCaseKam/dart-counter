@@ -1,0 +1,12 @@
+.players-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+}
+
+
+@media (max-width: 800px) {
+    .players-list {
+      flex-direction: column;
+    }
+  }

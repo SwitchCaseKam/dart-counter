@@ -12,3 +12,5 @@ export const updatePlayerPoints = createAction(`${actionPrefix} Update player po
 export const updatePlayerSets = createAction(`${actionPrefix} Update player sets`, (name: string, sets: number) => ({name, sets}));
 
 export const updatePlayerLegs = createAction(`${actionPrefix} Update player legs`, (name: string, legs: number) => ({name, legs}));
+
+export const resetPlayersPoints = createAction(`${actionPrefix} Reset players legs`, (gameConfig: GameConfig) => ({gameConfig}));

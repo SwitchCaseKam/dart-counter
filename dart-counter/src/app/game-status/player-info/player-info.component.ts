@@ -5,6 +5,8 @@ import { Player } from 'src/app/models/game-status.model';
 import { selectGameStatus, State } from 'src/app/reducers';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
+import { GameStatusManagerService } from '../services/game-status-manager.service';
+import { DoubleOutCombinations } from './double-out-combinations';
 
 @Component({
   selector: 'app-player-info',
@@ -17,9 +19,11 @@ export class PlayerInfoComponent implements OnInit {
   @Input() public points: string | undefined = '';
   @Input() public sets: string | undefined= '';
   @Input() public legs: string | undefined = '';
+  public doubleOutCombination: string | undefined = undefined;
 
   constructor(
-    private gameStore: Store<State>
+    private gameStore: Store<State>,
+    private gameStatusManagerService: GameStatusManagerService
   ) { }
 
   public ngOnInit(): void {
@@ -32,12 +36,19 @@ export class PlayerInfoComponent implements OnInit {
         this.points = player?.currentPoints.toString();
         this.legs = player?.legs.toString();;
         this.sets = player?.sets.toString();;
+        this.doubleOutCombination = DoubleOutCombinations.get(Number(this.points));
       });
+
+    this.gameStatusManagerService.getPlayerNameWhoStartedSubject().subscribe(
+      (playerName: string) => {
+        if (playerName === this.name) {
+          document.getElementById(`${this.name}-info-container`)?.focus()
+        }
+      }
+    )
   }
 
   public updateCurrentPoints(scoredPoints: number): void {
-    // this.points = (Number(this.points) - scoredPoints).toString();
-    this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.name, Number(this.points) - scoredPoints));
-
+    this.gameStatusManagerService.updatePlayerPoints(this.name, scoredPoints);
   }
 }

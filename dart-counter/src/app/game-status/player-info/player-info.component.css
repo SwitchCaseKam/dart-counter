@@ -2,8 +2,10 @@
     padding: 1%;
     border: 1px dotted black;
     text-align: center;
+    background-color: rgb(75, 70, 64);
+    color: white;
 }
 
 .points-input {
-    /* border: 1px solid black; */
+    border-bottom: 1px solid white;
 }

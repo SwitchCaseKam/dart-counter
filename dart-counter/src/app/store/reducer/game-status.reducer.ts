@@ -28,6 +28,19 @@ export const gameStatusReducer = createReducer(
       data: updatePlayerPointsAndUpdateStore(name, points, gameStatusState)
     })
   ),
+  on(GameStatusActions.resetPlayersPoints,
+    (gameStatusState: GameStatusState, {gameConfig}) => 
+    ({...gameStatusState,
+      data: resetPlayersPointsAndUpdateStore(gameStatusState, gameConfig)
+    })
+  ),
+  on(GameStatusActions.updatePlayerLegs,
+    (gameStatusState: GameStatusState, {name, legs}) => 
+    ({...gameStatusState,
+      data: updatePlayerLegsAndUpdateStore(name, legs, gameStatusState)
+    })
+  ),
+
 );
 
 function createPlayers(gameConfig: GameConfig): GameStatus {
@@ -44,7 +57,7 @@ function updatePlayerPointsAndUpdateStore(name: string, points: number, gameStat
         if (player.name === name) {
           return {
             ...player,
-            currentPoints: points
+            currentPoints: player.currentPoints - points
           };
         }
         return player;
@@ -52,6 +65,36 @@ function updatePlayerPointsAndUpdateStore(name: string, points: number, gameStat
     )
   );
 }
+
+function resetPlayersPointsAndUpdateStore(gameStatusState: GameStatusState, gameConfig: GameConfig): GameStatus {
+  return new GameStatus(
+    gameStatusState?.data?.players.map(
+      player => {
+        return {
+          ...player,
+          currentPoints: gameConfig.points
+        };
+      }
+    )
+  );
+}
+
+function updatePlayerLegsAndUpdateStore(name: string, legs: number, gameStatusState: GameStatusState): GameStatus {
+  return new GameStatus(
+    gameStatusState?.data?.players.map(
+      player => {
+        if (player.name === name) {
+          return {
+            ...player,
+            legs: player.legs + legs
+          };
+        }
+        return player;
+      }
+    )
+  );
+}
+
 
 export function configReducer(state: GameStatusState | undefined, action: Action): any {
   return gameStatusReducer(state, action);
