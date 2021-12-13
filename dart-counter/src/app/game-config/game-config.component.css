@@ -1,5 +1,5 @@
 #addPlayerButton {
-    background-color: greenyellow;
+    background-color: rgb(240, 225, 97);
 }
 
 #removePlayerButton {
@@ -12,6 +12,36 @@
 }
 
 .game-configuration-area {
-    border-radius: 8%;
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+    padding: 4px;
+    /* display: inline-block; */
+    text-align: center;
+    background-color: rgb(112, 108, 108);
+    color: white;
+}
+
+#startGameButton {
+    background-color: bisque;
+}
+
+.legs-and-sets {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+}
+
+@media (max-width: 800px) {
+    .legs-and-sets {
+      flex-direction: column;
+    }
+  }
+
+.legs-sets {
+    padding: 5px;
+}
+
+h3 {
+    text-align: center;
 }

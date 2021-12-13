@@ -3,12 +3,15 @@ export class Player {
     public currentPoints: number;
     public legs: number;
     public sets: number;
+    public scoredPoints: number[];
+    public averagePoints: number = 0;
 
-    constructor(name: string, currentPoints: number, legs: number = 0, sets: number = 0) {
+    constructor(name: string, currentPoints: number, legs: number = 0, sets: number = 0, scoredPoints: number[] = []) {
         this.name = name;
         this.currentPoints = currentPoints;
         this.legs = legs;
         this.sets = sets;
+        this.scoredPoints = scoredPoints;
     }
 }
 

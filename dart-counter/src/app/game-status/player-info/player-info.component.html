@@ -8,5 +8,9 @@
             <input class="points-input" matInput type="number" name="currentPoints" (keydown.enter)="updateCurrentPoints(form.value.currentPoints)" ngModel>
         </mat-form-field>
     </form>
-
+    Average: <b>{{ averagePoints }}</b><br>
+    Points: <ng-container *ngFor="let points of scoredPoints">
+        {{ points }},
+    </ng-container>
+    <br>
 </div>

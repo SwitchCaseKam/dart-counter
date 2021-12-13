@@ -41,6 +41,7 @@ export class GameStatusManagerService {
       this.playerNameWhoStartedSubject.next(
         this.gameStatus.players[(currentPlayerIndex+1)%this.gameStatus.players.length].name)
     }
+    this.gameStore.dispatch(GameStatusActions.calculatePlayerAveragePoints(playerName));
   }
 
   public getPlayerNameWhoStartedSubject(): Observable<string> {

@@ -19,7 +19,9 @@ export class PlayerInfoComponent implements OnInit {
   @Input() public points: string | undefined = '';
   @Input() public sets: string | undefined= '';
   @Input() public legs: string | undefined = '';
-  public doubleOutCombination: string | undefined = undefined;
+  public doubleOutCombination: string | undefined = '';
+  public averagePoints: string | undefined = '0';
+  public scoredPoints: number[] | undefined = [];
 
   constructor(
     private gameStore: Store<State>,
@@ -34,8 +36,10 @@ export class PlayerInfoComponent implements OnInit {
         console.log('players: ', players)
         const player = players.find(p => p.name === this.name);
         this.points = player?.currentPoints.toString();
-        this.legs = player?.legs.toString();;
-        this.sets = player?.sets.toString();;
+        this.legs = player?.legs.toString();
+        this.sets = player?.sets.toString();
+        this.averagePoints = player?.averagePoints?.toFixed(3);
+        this.scoredPoints = player?.scoredPoints;
         this.doubleOutCombination = DoubleOutCombinations.get(Number(this.points));
       });
 

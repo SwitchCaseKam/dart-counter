@@ -40,7 +40,12 @@ export const gameStatusReducer = createReducer(
       data: updatePlayerLegsAndUpdateStore(name, legs, gameStatusState)
     })
   ),
-
+  on(GameStatusActions.calculatePlayerAveragePoints,
+    (gameStatusState: GameStatusState, {name}) => 
+    ({...gameStatusState,
+      data: calculateAveragePointsForPlayerAndUpdateStore(name, gameStatusState)
+    })
+  )
 );
 
 function createPlayers(gameConfig: GameConfig): GameStatus {
@@ -57,7 +62,24 @@ function updatePlayerPointsAndUpdateStore(name: string, points: number, gameStat
         if (player.name === name) {
           return {
             ...player,
-            currentPoints: player.currentPoints - points
+            currentPoints: player.currentPoints - points,
+            scoredPoints: [...player.scoredPoints, points],
+          };
+        }
+        return player;
+      }
+    )
+  );
+}
+
+function calculateAveragePointsForPlayerAndUpdateStore(name: string, gameStatusState: GameStatusState): GameStatus {
+  return new GameStatus(
+    gameStatusState?.data?.players.map(
+      player => {
+        if (player.name === name) {
+          return {
+            ...player,
+            averagePoints: averageScoredPoints(player),
           };
         }
         return player;
@@ -93,6 +115,11 @@ function updatePlayerLegsAndUpdateStore(name: string, legs: number, gameStatusSt
       }
     )
   );
+}
+
+function averageScoredPoints(player: Player): number {
+  const sum = player.scoredPoints.reduce((a, b) => a + b, 0);
+  return sum / player.scoredPoints.length;
 }
 
 
