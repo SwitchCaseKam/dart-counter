@@ -39,9 +39,18 @@
   }
 
 .legs-sets {
+    color: black;
     padding: 5px;
+    background-color: rgb(241, 231, 231);
+    border: 2px solid black;
 }
 
 h3 {
     text-align: center;
+}
+
+.players-list {
+    background: rgb(238, 233, 222);
+    /* border: 2px solid; */
+    color: black
 }

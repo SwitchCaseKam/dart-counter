@@ -1,6 +1,6 @@
 <div class="game-configuration-area">
     <form [formGroup]="configurationForm">
-        <h3>GAME CONFIGURATION</h3>
+        <h2>GAME CONFIGURATION</h2>
         <br>
         <mat-radio-group required aria-label="Select an option" formControlName="points" required>
             <!-- <div *ngFor="let pointsMode of points"> -->
@@ -8,7 +8,7 @@
                 <!-- <br> -->
             <!-- </div> -->
         </mat-radio-group>
-        <br>
+        <br><br>
         <div class="legs-and-sets">
             <div class="legs-sets">
                 <mat-form-field>
@@ -32,15 +32,18 @@
             </div>
             <br>
         </div>
-        <br>
+        <br><br>
         <div formArrayName="players">
             <button [disabled]="getPlayersFormArray().controls.length === 4" id="addPlayerButton" mat-button color="primary" class="button-section" (click)="addPlayer()">Add player</button>
-            <div *ngFor="let player of getPlayersFormArray().controls; let i=index" [formGroupName]="i">
-                <mat-form-field class="player-input">
-                    <input type="text" formControlName="name" placeholder="Player {{i+1}}" matInput>
-                </mat-form-field>
-                <button id="removePlayerButton" mat-button color="warn" class="button-section" (click)="removePlayer(i)">-</button>
-                <br>
+            <br>
+            <div class="players-list">
+                <div *ngFor="let player of getPlayersFormArray().controls; let i=index" [formGroupName]="i">
+                    <mat-form-field class="player-input">
+                        <input type="text" formControlName="name" placeholder="Player {{i+1}}" matInput>
+                    </mat-form-field>
+                    <button id="removePlayerButton" mat-button color="warn" class="button-section" (click)="removePlayer(i)">-</button>
+                    <br>
+                </div>
             </div>
         </div> 
         <br>
