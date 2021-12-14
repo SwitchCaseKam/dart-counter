@@ -60,11 +60,11 @@ function updatePlayerPointsAndUpdateStore(name: string, points: number, gameStat
     gameStatusState?.data?.players.map(
       player => {
         if (player.name === name) {
-          const newPoints = points <= player.currentPoints ? player.currentPoints - points : player.currentPoints;
+          const newPoints = points < player.currentPoints ? player.currentPoints - points : player.currentPoints;
           return {
             ...player,
             currentPoints: newPoints,
-            scoredPoints: [...player.scoredPoints, points <= player.currentPoints ? player.currentPoints - points : 0],
+            scoredPoints: [...player.scoredPoints, points <= player.currentPoints ? points : 0],
           };
         }
         return player;

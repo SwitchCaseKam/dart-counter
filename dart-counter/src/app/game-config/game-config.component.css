@@ -1,5 +1,5 @@
 #addPlayerButton {
-    background-color: rgb(240, 225, 97);
+    background-color: rgb(97, 188, 240);
 }
 
 #removePlayerButton {
@@ -18,8 +18,8 @@
     padding: 4px;
     /* display: inline-block; */
     text-align: center;
-    background-color: rgb(112, 108, 108);
-    color: white;
+    /* background-color: rgb(112, 108, 108); */
+    /* color: white; */
 }
 
 #startGameButton {
@@ -41,8 +41,9 @@
 .legs-sets {
     color: black;
     padding: 5px;
-    background-color: rgb(241, 231, 231);
-    border: 2px solid black;
+    /* background-color: rgb(241, 231, 231); */
+    border-right: 0.2px solid rgb(105, 103, 103);
+    border-left: 0.2px solid rgb(105, 103, 103);
 }
 
 h3 {
@@ -50,7 +51,7 @@ h3 {
 }
 
 .players-list {
-    background: rgb(238, 233, 222);
+    /* background: rgb(173, 213, 236); */
     /* border: 2px solid; */
     color: black
 }
