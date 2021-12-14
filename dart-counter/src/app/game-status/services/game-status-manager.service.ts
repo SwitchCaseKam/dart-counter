@@ -32,6 +32,7 @@ export class GameStatusManagerService {
   }
 
   public updatePlayerPoints(playerName: string, scoredPoints: number): void {
+    if (!Number.isInteger(scoredPoints) || scoredPoints > 180) { return; }
     const currentPlayer = this.gameStatus.players.find(pl => pl.name === playerName);
     const currentPlayerIndex = currentPlayer ? this.gameStatus.players.indexOf(currentPlayer) : 0; 
     this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(playerName, scoredPoints));

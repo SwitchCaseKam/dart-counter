@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { filter, map } from 'rxjs/operators';
 import { Player } from 'src/app/models/game-status.model';
@@ -19,16 +20,19 @@ export class PlayerInfoComponent implements OnInit {
   @Input() public points: string | undefined = '';
   @Input() public sets: string | undefined= '';
   @Input() public legs: string | undefined = '';
+  public playerPointsForm: FormGroup = new FormGroup({});
   public doubleOutCombination: string | undefined = '';
   public averagePoints: string | undefined = '0';
   public scoredPoints: number[] | undefined = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private gameStore: Store<State>,
     private gameStatusManagerService: GameStatusManagerService
   ) { }
 
   public ngOnInit(): void {
+    this.playerPointsForm = this.createPlayerPointsForm();
     this.gameStore.pipe(select(selectGameStatus)).pipe(
       map((gameStatus: GameStatusState) => gameStatus.data.players),
     ).subscribe(
@@ -53,6 +57,30 @@ export class PlayerInfoComponent implements OnInit {
   }
 
   public updateCurrentPoints(scoredPoints: number): void {
+    console.log(scoredPoints)
     this.gameStatusManagerService.updatePlayerPoints(this.name, scoredPoints);
+  }
+
+  private createPlayerPointsForm(): FormGroup {
+    return this.formBuilder.group({
+      points: ['', {
+        validators: [this.validatePoints()],
+        updateOn: 'change'
+      }]
+    });
+  }
+
+  private validatePoints(): ValidatorFn {
+    return (control: AbstractControl) => {
+      if(control.value?.toString().toLowerCase().includes('.')) {
+        control.setErrors({invalidNumber: true});
+        return {invalidNumber: true};
+      } else if(control.value > 180) {
+        control.setErrors({wrongNumber: true});
+        return {wrongNumber: true};
+      } else {
+        return null;
+      }
+    }
   }
 }

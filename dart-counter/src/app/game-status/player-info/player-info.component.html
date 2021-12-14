@@ -3,9 +3,17 @@
     Legs: {{ legs }}
     Sets: {{ sets }}
     <h1>{{points}}</h1>{{doubleOutCombination}}
-    <form #form="ngForm">
+    <form [formGroup]="playerPointsForm">
         <mat-form-field>
-            <input class="points-input" placeholder="Pass points" matInput type="number" name="currentPoints" (keydown.enter)="updateCurrentPoints(form.value.currentPoints)" ngModel>
+            <input 
+            class="points-input" 
+            placeholder="Pass points"
+            matInput type="number"
+            formControlName="points"
+            step="1"
+            (keydown.enter)="updateCurrentPoints(playerPointsForm.value.points)">
+            <mat-error *ngIf="playerPointsForm.get('points')?.hasError('invalidNumber')">Incorrect number</mat-error>
+            <mat-error *ngIf="playerPointsForm.get('points')?.hasError('wrongNumber')">Max value 180!</mat-error>
         </mat-form-field>
     </form>
     Average: <b>{{ averagePoints }}</b><br>
