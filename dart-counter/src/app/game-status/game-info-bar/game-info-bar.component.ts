@@ -29,11 +29,8 @@ export class GameInfoBarComponent implements OnInit, OnDestroy {
 
   private subscribeToGameConfig(): void {
     this.gameConfigSubscription = this.gameStore.pipe(select(selectGameConfig)).pipe(map(gameConfig => gameConfig.data)).subscribe(
-      (gameConfig: GameConfig) => {
-        this.gameConfig = gameConfig;
-        console.log(gameConfig)
-      }
-    )
+      (gameConfig: GameConfig) => this.gameConfig = gameConfig
+    );
   }
 
 

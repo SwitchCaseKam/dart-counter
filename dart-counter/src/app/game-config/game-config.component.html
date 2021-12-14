@@ -1,52 +1,57 @@
-<div class="game-configuration-area">
-    <form [formGroup]="configurationForm">
-        <h2>GAME CONFIGURATION</h2>
-        <br>
-        <mat-radio-group required aria-label="Select an option" formControlName="points" required>
-            <!-- <div *ngFor="let pointsMode of points"> -->
-                <mat-radio-button *ngFor="let pointsMode of points" value={{pointsMode}}>{{pointsMode}} </mat-radio-button>
-                <!-- <br> -->
-            <!-- </div> -->
-        </mat-radio-group>
-        <br><br>
-        <div class="legs-and-sets">
-            <div class="legs-sets">
-                <mat-form-field>
-                    <h3>legs</h3>
-                    <mat-select class="select-field" formControlName="legs">
-                        <mat-option *ngFor="let legsMode of legs" [value]="legsMode">
-                            {{legsMode.mode}} {{legsMode.value}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="legs-sets">
-                <mat-form-field>
-                    <h3>sets</h3>
-                    <mat-select class="select-field" formControlName="sets">
-                        <mat-option *ngFor="let setsMode of sets" [value]="setsMode">
-                            {{setsMode.mode}} {{setsMode.value}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <br>
+<div class="container">
+    <div class="game-configuration-area">
+        <div id="config-title">
+            <h2>Setup your game ...</h2>
         </div>
-        <br><br>
-        <div formArrayName="players">
-            <button [disabled]="getPlayersFormArray().controls.length === 4" id="addPlayerButton" mat-button color="primary" class="button-section" (click)="addPlayer()">Add player</button>
+        <form [formGroup]="configurationForm">
             <br>
-            <div class="players-list">
-                <div *ngFor="let player of getPlayersFormArray().controls; let i=index" [formGroupName]="i">
-                    <mat-form-field class="player-input">
-                        <input type="text" formControlName="name" placeholder="Player {{i+1}}" matInput>
+            <mat-radio-group required aria-label="Select an option" formControlName="points" required>
+                <!-- <div *ngFor="let pointsMode of points"> -->
+                    <mat-radio-button *ngFor="let pointsMode of points" value={{pointsMode}}>{{pointsMode}} </mat-radio-button>
+                    <!-- <br> -->
+                <!-- </div> -->
+            </mat-radio-group>
+            <br><br>
+            <div class="legs-and-sets">
+                <div class="legs-sets">
+                    <mat-form-field>
+                        <h3>legs</h3>
+                        <mat-select class="select-field" formControlName="legs">
+                            <mat-option *ngFor="let legsMode of legs" [value]="legsMode">
+                                {{legsMode.mode}} {{legsMode.value}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
-                    <button id="removePlayerButton" mat-button color="warn" class="button-section" (click)="removePlayer(i)">-</button>
-                    <br>
                 </div>
+                <div class="legs-sets">
+                    <mat-form-field>
+                        <h3>sets</h3>
+                        <mat-select class="select-field" formControlName="sets">
+                            <mat-option *ngFor="let setsMode of sets" [value]="setsMode">
+                                {{setsMode.mode}} {{setsMode.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <br>
             </div>
-        </div> 
-        <br>
-        <button id="startGameButton" [disabled]="getPlayersFormArray().controls.length === 0" mat-button color="primary" class="button-section" routerLink="../game-status" (click)="startGame()">START GAME</button>
-    </form>
+            <br><br>
+            <div formArrayName="players">
+                <button [disabled]="getPlayersFormArray().controls.length === 4" id="addPlayerButton" mat-button color="primary" class="button-section" (click)="addPlayer()"><b>Add player</b></button>
+                <br>
+                <div class="players-list">
+                    <div *ngFor="let player of getPlayersFormArray().controls; let i=index" [formGroupName]="i">
+                        <mat-form-field class="player-input">
+                            <input type="text" formControlName="name" placeholder="Player {{i+1}}" matInput>
+                        </mat-form-field>
+                        <button id="removePlayerButton" mat-button color="warn" class="button-section" (click)="removePlayer(i)">-</button>
+                        <br>
+                    </div>
+                </div>
+            </div> 
+            <br>
+            <button id="startGameButton" [disabled]="getPlayersFormArray().controls.length === 0" mat-button color="primary" class="button-section" routerLink="../game-status" (click)="startGame()"><b>START GAME</b></button>
+        </form>
+    </div>
 </div>
+

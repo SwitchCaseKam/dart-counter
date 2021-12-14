@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { State } from '../reducers';
 import * as GameConfigurationConsts from './models/game-configuration.models';
-import * as GameConfigActions from 'src/app/store/action/game-config.actions';
-import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 import { GameConfig } from '../models/game-config.model';
-import { debounceTime, switchMap, tap } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
+import { GameConfigManagerService } from './services/game-config-manager.service';
 
 @Component({
   selector: 'app-game-config',
@@ -23,7 +20,7 @@ export class GameConfigComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private gameStore: Store<State>
+    private gameConfigManagerService: GameConfigManagerService
   ) { }
 
   public ngOnInit(): void {
@@ -32,8 +29,7 @@ export class GameConfigComponent implements OnInit {
   }
 
   public startGame(): void {
-    this.gameStore.dispatch(GameConfigActions.startGame(this.gameConfig));
-    this.gameStore.dispatch(GameStatusActions.createPlayers(this.gameConfig));
+    this.gameConfigManagerService.setupGameConfig(this.gameConfig);
   }
 
   public addPlayer(): void {

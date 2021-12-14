@@ -5,7 +5,7 @@
     <h1>{{points}}</h1>{{doubleOutCombination}}
     <form #form="ngForm">
         <mat-form-field>
-            <input class="points-input" matInput type="number" name="currentPoints" (keydown.enter)="updateCurrentPoints(form.value.currentPoints)" ngModel>
+            <input class="points-input" placeholder="Pass points" matInput type="number" name="currentPoints" (keydown.enter)="updateCurrentPoints(form.value.currentPoints)" ngModel>
         </mat-form-field>
     </form>
     Average: <b>{{ averagePoints }}</b><br>

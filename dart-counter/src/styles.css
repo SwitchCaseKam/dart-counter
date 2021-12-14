@@ -2,7 +2,12 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 html {
-    background-color: rgb(218, 219, 226);
+    /* background-color: rgb(218, 219, 226); */
+    background-image: url('https://cdn.pixabay.com/photo/2018/12/26/14/22/darts-3895861_960_720.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
