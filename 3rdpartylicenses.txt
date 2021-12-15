@@ -72,6 +72,9 @@ MIT
 @ngrx/store-devtools
 MIT
 
+@rxweb/reactive-form-validators
+MIT
+
 rxjs
 Apache-2.0
                                Apache License
