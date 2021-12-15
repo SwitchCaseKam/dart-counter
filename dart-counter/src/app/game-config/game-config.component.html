@@ -37,20 +37,20 @@
             </div>
             <br><br>
             <div formArrayName="players">
-                <button [disabled]="getPlayersFormArray().controls.length === 4" id="addPlayerButton" mat-button color="primary" class="button-section" (click)="addPlayer()"><b>Add player</b></button>
+                <button [disabled]="getPlayersFormArray().controls.length === 10" id="addPlayerButton" mat-button color="primary" class="button-section" (click)="addPlayer()"><b>Add player</b></button>
                 <br>
                 <div class="players-list">
                     <div *ngFor="let player of getPlayersFormArray().controls; let i=index" [formGroupName]="i">
                         <mat-form-field class="player-input">
-                            <input type="text" formControlName="name" placeholder="Player {{i+1}}" matInput>
+                            <input type="text" formControlName="name" placeholder="Player {{i+1}}" matInput required>
                         </mat-form-field>
-                        <button id="removePlayerButton" mat-button color="warn" class="button-section" (click)="removePlayer(i)">-</button>
+                        <button id="removePlayerButton" mat-button class="button-section" (click)="removePlayer(i)">-</button>
                         <br>
                     </div>
                 </div>
             </div> 
             <br>
-            <button id="startGameButton" [disabled]="getPlayersFormArray().controls.length === 0" mat-button color="primary" class="button-section" routerLink="../game-status" (click)="startGame()"><b>START GAME</b></button>
+            <button id="startGameButton" [disabled]="!configurationForm.valid || getPlayersFormArray().controls.length === 0" mat-button color="primary" class="button-section" routerLink="../game-status" (click)="startGame()"><b>START GAME</b></button>
         </form>
     </div>
 </div>

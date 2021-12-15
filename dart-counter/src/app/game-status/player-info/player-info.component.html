@@ -7,18 +7,18 @@
         <mat-form-field>
             <input 
             class="points-input" 
-            placeholder="Pass points"
+            placeholder="Enter score"
             matInput type="number"
             formControlName="points"
             step="1"
             (keydown.enter)="updateCurrentPoints(playerPointsForm.value.points)">
             <mat-error *ngIf="playerPointsForm.get('points')?.hasError('invalidNumber')">Incorrect number</mat-error>
-            <mat-error *ngIf="playerPointsForm.get('points')?.hasError('wrongNumber')">Max value 180!</mat-error>
+            <mat-error *ngIf="playerPointsForm.get('points')?.hasError('wrongNumber')">Points must be in range 0..180!</mat-error>
         </mat-form-field>
     </form>
     Average: <b>{{ averagePoints }}</b><br>
-    Points: <ng-container *ngFor="let points of scoredPoints">
+    <!-- Points: <ng-container *ngFor="let points of scoredPoints">
         {{ points }},
-    </ng-container>
+    </ng-container> -->
     <br>
 </div>

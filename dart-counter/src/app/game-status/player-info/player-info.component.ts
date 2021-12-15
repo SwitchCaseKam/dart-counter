@@ -57,7 +57,6 @@ export class PlayerInfoComponent implements OnInit {
   }
 
   public updateCurrentPoints(scoredPoints: number): void {
-    console.log(scoredPoints)
     this.gameStatusManagerService.updatePlayerPoints(this.name, scoredPoints);
   }
 
@@ -75,7 +74,7 @@ export class PlayerInfoComponent implements OnInit {
       if(control.value?.toString().toLowerCase().includes('.')) {
         control.setErrors({invalidNumber: true});
         return {invalidNumber: true};
-      } else if(control.value > 180) {
+      } else if(control.value > 180 || control.value < 0) {
         control.setErrors({wrongNumber: true});
         return {wrongNumber: true};
       } else {
