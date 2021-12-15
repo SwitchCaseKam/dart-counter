@@ -6,8 +6,9 @@ html {
     background-image: url('https://cdn.pixabay.com/photo/2018/12/26/14/22/darts-3895861_960_720.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
-    width: 100%;
+	  background-position: center;
+    height: auto;
+    background-attachment: fixed;
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
