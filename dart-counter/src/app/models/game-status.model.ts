@@ -4,7 +4,8 @@ export class Player {
     public legs: number;
     public sets: number;
     public scoredPoints: number[];
-    public averagePoints: number = 0;
+    public averagePoints1Dart: number = 0;
+    public averagePoints3Darts: number = 0;
 
     constructor(name: string, currentPoints: number, legs: number = 0, sets: number = 0, scoredPoints: number[] = []) {
         this.name = name;

@@ -81,7 +81,7 @@ function calculateAveragePointsForPlayerAndUpdateStore(name: string, gameStatusS
         if (player.name === name) {
           return {
             ...player,
-            averagePoints: averageScoredPoints(player),
+            averagePoints3Darts: averageScoredPoints(player),
           };
         }
         return player;

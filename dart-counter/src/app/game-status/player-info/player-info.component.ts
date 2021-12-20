@@ -24,6 +24,8 @@ export class PlayerInfoComponent implements OnInit {
   public doubleOutCombination: string | undefined = '';
   public averagePoints: string | undefined = '0';
   public scoredPoints: number[] | undefined = [];
+  public wasStarted: boolean = false;
+  public isTurn: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,12 +39,11 @@ export class PlayerInfoComponent implements OnInit {
       map((gameStatus: GameStatusState) => gameStatus.data.players),
     ).subscribe(
       (players: Player[]) => {
-        console.log('players: ', players)
         const player = players.find(p => p.name === this.name);
         this.points = player?.currentPoints.toString();
         this.legs = player?.legs.toString();
         this.sets = player?.sets.toString();
-        this.averagePoints = player?.averagePoints?.toFixed(3);
+        this.averagePoints = player?.averagePoints3Darts?.toFixed(3);
         this.scoredPoints = player?.scoredPoints;
         this.doubleOutCombination = DoubleOutCombinations.get(Number(this.points));
       });
@@ -50,10 +51,18 @@ export class PlayerInfoComponent implements OnInit {
     this.gameStatusManagerService.getPlayerNameWhoStartedSubject().subscribe(
       (playerName: string) => {
         if (playerName === this.name) {
+          console.log('playerName: ', playerName)
           document.getElementById(`${this.name}-info-container`)?.focus()
+          this.wasStarted = true;
+        } else {
+          this.wasStarted = false;
         }
       }
     )
+
+    this.gameStatusManagerService.getCurrentPlayerNameSubject().subscribe(
+      (playerName: string) => this.isTurn = playerName === this.name ?  true : false
+    );
   }
 
   public updateCurrentPoints(scoredPoints: number): void {

@@ -8,13 +8,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PlayerInfoComponent } from './player-info/player-info.component';
 import { GameInfoBarComponent } from './game-info-bar/game-info-bar.component';
+import { WinnerModalComponent } from './winner-modal/winner-modal.component';
 
 
 @NgModule({
   declarations: [
     GameStatusComponent,
     PlayerInfoComponent,
-    GameInfoBarComponent
+    GameInfoBarComponent,
+    WinnerModalComponent
   ],
   imports: [
     CommonModule,
