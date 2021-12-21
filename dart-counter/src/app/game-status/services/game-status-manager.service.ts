@@ -48,8 +48,8 @@ export class GameStatusManagerService {
     if (currentPlayer && (currentPlayer.currentPoints - scoredPoints === 0)) {
       this.gameStore.dispatch(GameStatusActions.updatePlayerLegs(playerName, 1));
       this.gameStore.dispatch(GameStatusActions.resetPlayersPoints(this.gameConfig));
-      // this.playerNameWhoStarted = this.gameStatus.players[(currentPlayerIndex+1)%this.gameStatus.players.length].name;
-      // this.playerNameWhoStartedSubject.next(this.playerNameWhoStarted);
+      this.playerNameWhoStarted = this.gameStatus.players[(this.gameConfig.players.findIndex(p => p.name === this.playerNameWhoStarted)+1)%this.gameStatus.players.length].name;
+      this.playerNameWhoStartedSubject.next(this.playerNameWhoStarted);
     }
     this.currentPlayerName = this.gameStatus.players[(currentPlayerIndex+1)%this.gameStatus.players.length].name;
     this.currentPlayerNameSubject.next(this.currentPlayerName);
