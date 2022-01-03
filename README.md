@@ -2,12 +2,14 @@
 
 ---
 
-Simple application to play dart.<br />
+Simple application to play **dart**.<br />
 Application allows to count points for players.<br />
-Player/Players can choose points mode, number of legs and sets. 
+Players can choose points mode, number of legs and sets. 
 
 Important: project in progress...<br />
-Project is based on ngrx, because author want to improve knowledge about this library.
+Project is based on **ngrx**, to improve personal knowledge about this library.
+<br />
+Application in current form gains positive comments in one of the facebook's dart group :)
 
 ---
 # Deployment
