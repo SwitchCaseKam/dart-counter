@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as GameConfigurationConsts from './models/game-configuration.models';
 import { GameConfig } from '../models/game-config.model';
 import { debounceTime } from 'rxjs/operators';
@@ -32,7 +32,8 @@ export class GameConfigComponent implements OnInit {
     this.gameConfigManagerService.setupGameConfig(this.gameConfig);
   }
 
-  public addPlayer(): void {
+  public addPlayer(event: Event): void {
+    event.preventDefault();
     this.getPlayersFormArray().push(this.formBuilder.group({name: ''}));
   }
 
@@ -46,10 +47,10 @@ export class GameConfigComponent implements OnInit {
 
   private createConfigurationForm(): FormGroup {
     return this.formBuilder.group({
-      points: [],
-      legs: [],
-      sets: [],
-      players: this.formBuilder.array([])
+      points: ['', Validators.required],
+      legs: ['', Validators.required],
+      sets: ['', Validators.required],
+      players: this.formBuilder.array([], Validators.required)
     });
   }
 
@@ -57,5 +58,9 @@ export class GameConfigComponent implements OnInit {
     this.configurationForm.valueChanges.pipe(debounceTime(300),).subscribe(
       gameConfigurationFormValue => { this.gameConfig = gameConfigurationFormValue as GameConfig;}
     );
+  }
+
+  public submitGameConfig(): void {
+    console.log(this.configurationForm.value)
   }
 }

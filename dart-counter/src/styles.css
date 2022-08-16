@@ -9,6 +9,10 @@ html {
 	  background-position: center;
     height: auto;
     background-attachment: fixed;
+    /* font-family: 'Impact', 'fantasy', monospace; */
+    font-family: 'Franklin Gothic Medium', 'cursive', monospace;
+    /* font-weight: 500 */
+    /* letter-spacing: 0.2em; */
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{

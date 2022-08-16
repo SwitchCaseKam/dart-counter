@@ -1,68 +1,101 @@
-#addPlayerButton {
-    background-color: rgb(97, 188, 240);
-    color: black;
+
+.game-configuration-area {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid black;
+    padding: 1em;
+    min-width: 30%;
 }
 
-#addPlayerButton:disabled {
-    background-color: rgb(200, 217, 226);
-    color: rgb(155, 150, 150);
+@media (max-width: 800px) {
+    .game-configuration-area {
+        min-width: 90%;
+    }
 }
 
-#removePlayerButton {
-    background-color: red;
-    color: white;
+.config-title {
+    margin-bottom: 1.5em;
 }
 
-.button-section {
-    border: 1px solid black;
+.config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.config-form__submit-button {
+    font-size: 1.25rem;
+    margin: 1em;
+}
+
+.config-form__points {
+    display: flex;
+    
+}
+
+.config-form__legs {
+    display: flex;
+}
+
+.config-form__sets {
+    display: flex;
+}
+
+.config-form__players {
+    display: flex;
+}
+
+.game-mode-title {
+    margin: 0;
+    min-width: 40%;
+    border-right: 1px solid grey;
+    margin-right: 1em;
+}
+
+.new-player {
+    display: flex;
+}
+
+.new-player-name {
+    max-width: 50%;
+    border: 0px;
+    border-bottom: 1px solid grey;
+    margin-right: 0.25em;
 }
 
 .container {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
 }
 
-.game-configuration-area {
-    padding: 4px;
-    display: inline-block;
-    text-align: center;
-    align-self: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid black;
-    border-radius: 15px;
-
-}
-
-#startGameButton {
-    background-color: bisque;
-}
-
-.legs-and-sets {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around; 
-}
-
-@media (max-width: 800px) {
-    .legs-and-sets {
-      flex-direction: column;
-    }
-  }
-
-.legs-sets {
+.config-form__submit-button {
+    border: 1px solid grey;
+    padding: 0.25em;
+    background-color: rgb(25, 196, 76);
     color: black;
-    padding: 5px;
-    /* background-color: rgb(241, 231, 231); */
-    border-right: 0.2px solid rgb(105, 103, 103);
-    border-left: 0.2px solid rgb(105, 103, 103);
-}
-
-.players-list {
 }
 
 
+.config-form__submit-button:disabled {
+    border: 1px solid grey;
+    padding: 0.25em;
+    background-color: rgb(202, 218, 212);
+    color: grey;
+}
 
-#config-title {
-    text-align: left;
-    padding-left: 2px;
+.add-player-button {
+    background-color: greenyellow;
+    border: 1px solid rgb(14, 187, 14);
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+.remove-player-button {
+    background-color: rgb(194, 69, 53);
+    border: 1px solid rgb(224, 17, 17);
+    width: 2em;
+    color: white;
 }
