@@ -1,3 +1,22 @@
+# Dart Counter
+
+---
+
+Simple application to play **dart**.<br />
+Application allows to count points for players.<br />
+Players can choose points mode, number of legs and sets. 
+
+Important: project in progress...<br />
+Project is based on **ngrx**, to improve personal knowledge about this library.
+<br />
+Application in current form gains positive comments in one of the facebook's dart group :)
+
+---
+# Deployment
+Application available at https://switchcasekam.github.io/dart-counter/
+
+----
+
 # DartScoresCounter
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
