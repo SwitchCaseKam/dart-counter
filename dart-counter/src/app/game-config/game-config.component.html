@@ -5,9 +5,9 @@
         </div>
         <form class="config-form game-configuration-area__form" [formGroup]="configurationForm" (ngSubmit)="submitGameConfig()">
     
-            <div class="config-form__points">
+            <div class="config-form__parameter">
                 <h2 class="game-mode-title">points</h2>
-                <div class="points-radio-buttons">
+                <div class="points-radio-buttons config-form__points">
                     <div *ngFor="let pointsMode of points">
                         <input [value]="pointsMode" type="radio" formControlName="points">
                         <label for="pointsMode">{{pointsMode}}</label>
@@ -15,44 +15,38 @@
                 </div>
             </div>
     
-            <div class="config-form__legs">
+            <div class="config-form__parameter">
                 <h2 class="game-mode-title">legs</h2>
-                <div>
-                    <select formControlName="legs">
-                        <option *ngFor="let legsMode of legs" [ngValue]="legsMode">
-                            {{legsMode.mode}} {{legsMode.value}}
-                        </option>
-                    </select>
-                </div>
+                <select formControlName="legs">
+                   <option *ngFor="let legsMode of legs" [ngValue]="legsMode">
+                        {{legsMode.mode}} {{legsMode.value}}
+                    </option>
+                </select>
             </div>
     
-            <div class="config-form__sets">
+            <div class="config-form__parameter">
                 <h2 class="game-mode-title">sets</h2>
-                <div>
-                    <select formControlName="sets" placeholder="Select number of sets">
-                        <option *ngFor="let setsMode of sets" [ngValue]="setsMode">
-                            {{setsMode.mode}} {{setsMode.value}}
-                        </option>
-                    </select>
-                </div>
+                <select formControlName="sets" placeholder="Select number of sets">
+                    <option *ngFor="let setsMode of sets" [ngValue]="setsMode">
+                        {{setsMode.mode}} {{setsMode.value}}
+                    </option>
+                </select>
             </div>
     
-            <div class="config-form__players" formArrayName="players">
+            <div class="config-form__parameter" formArrayName="players">
                 <h2 class="game-mode-title">players</h2>
-                <div class="players-list">
-                    <button class="add-player-button" [disabled]="getPlayersFormArray().controls.length === 4" (click)="addPlayer($event)">
+                <div class="players-list players__single-player">
+                    <button class="players-list__add-player-button" [disabled]="getPlayersFormArray().controls.length === 4" (click)="addPlayer($event)">
                         Add player
                     </button>
                     <div *ngFor="let player of getPlayersFormArray().controls; let i=index" [formGroupName]="i">
-                        <input class="new-player-name" type="text" formControlName="name" placeholder="Player {{i+1}}">
-                        <button class="remove-player-button" (click)="removePlayer(i)">-</button>
+                        <input class="players-list__new-player-name" type="text" formControlName="name" placeholder="Player {{i+1}}">
+                        <button class="players-list__remove-player-button" (click)="removePlayer(i)">-</button>
                     </div>
                 </div>
             </div>
             
-            <button class="config-form__submit-button" type="submit" [disabled]="!configurationForm.valid">START GAME</button>
+            <button class="config-form__submit-button" type="submit" [disabled]="!configurationForm.valid" routerLink="../game-status">START GAME</button>
         </form>
     </div>
-    
-    
 </div>

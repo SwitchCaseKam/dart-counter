@@ -1,5 +1,15 @@
-#header {
+.header {
     background-color: black;
     color: chartreuse;
-    padding: 5px;
+    padding: 1em;
+    display: flex;
+    gap: 2em;
+    margin-bottom: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logo {
+    width: 64px;
+    height: 64px;
 }

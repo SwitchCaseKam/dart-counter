@@ -28,7 +28,7 @@ export class GameConfigComponent implements OnInit {
     this.subscribeToPlayersForm();
   }
 
-  public startGame(): void {
+  public submitGameConfig(): void {
     this.gameConfigManagerService.setupGameConfig(this.gameConfig);
   }
 
@@ -58,9 +58,5 @@ export class GameConfigComponent implements OnInit {
     this.configurationForm.valueChanges.pipe(debounceTime(300),).subscribe(
       gameConfigurationFormValue => { this.gameConfig = gameConfigurationFormValue as GameConfig;}
     );
-  }
-
-  public submitGameConfig(): void {
-    console.log(this.configurationForm.value)
   }
 }
