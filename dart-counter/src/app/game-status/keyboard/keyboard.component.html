@@ -1,0 +1,6 @@
+<div class="keyboard">
+    <div class="keyboard__single-button" *ngFor="let buttonNum of buttonNums"
+        (click)="clickButton(buttonNum)">
+        <p>{{ buttonNum }}</p>
+    </div>
+</div>

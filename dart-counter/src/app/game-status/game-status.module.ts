@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { PlayerInfoComponent } from './player-info/player-info.component';
 import { GameInfoBarComponent } from './game-info-bar/game-info-bar.component';
 import { WinnerModalComponent } from './winner-modal/winner-modal.component';
+import { KeyboardComponent } from './keyboard/keyboard.component';
+import { PlayerPointsComponent } from './player-info/player-points/player-points.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { WinnerModalComponent } from './winner-modal/winner-modal.component';
     GameStatusComponent,
     PlayerInfoComponent,
     GameInfoBarComponent,
-    WinnerModalComponent
+    WinnerModalComponent,
+    KeyboardComponent,
+    PlayerPointsComponent
   ],
   imports: [
     CommonModule,

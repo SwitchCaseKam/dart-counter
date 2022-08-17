@@ -27,7 +27,6 @@ export class GameStatusComponent implements OnInit {
       map((gameStatus: GameStatusState) => gameStatus.data.players)
     ).subscribe(
       (players: Player[]) => {
-        console.log('players: ', players)
         this.playersStatus = players;
       });
   }

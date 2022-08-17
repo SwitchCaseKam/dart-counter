@@ -3,26 +3,32 @@
         <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/48/000000/external-dart-sports-those-icons-lineal-color-those-icons.png"/>
     </ng-container>
     <img *ngIf="isTurn" src="https://img.icons8.com/emoji/48/000000/green-circle-emoji.png"/>
-    <h2>{{name}}</h2>
+    <h1>{{points}}</h1>{{doubleOutCombination}}
     Legs: {{ legs }}
     Sets: {{ sets }}
-    <h1>{{points}}</h1>{{doubleOutCombination}}
-    <form [formGroup]="playerPointsForm">
-        <mat-form-field>
-            <input 
-            class="points-input" 
-            placeholder="Enter score"
-            matInput type="number"
-            formControlName="points"
-            step="1"
-            (keydown.enter)="updateCurrentPoints(playerPointsForm.value.points)">
-            <mat-error *ngIf="playerPointsForm.get('points')?.hasError('invalidNumber')">Incorrect number</mat-error>
-            <mat-error *ngIf="playerPointsForm.get('points')?.hasError('wrongNumber')">Points must be in range 0..180!</mat-error>
-        </mat-form-field>
-    </form>
+    <h2>{{name}}</h2>
+    <!-- <form [formGroup]="playerPointsForm">
+        <ng-container *ngIf="isTurn">
+            <mat-form-field>
+                <input 
+                class="points-input" 
+                placeholder="Enter score"
+                matInput type="number"
+                formControlName="points"
+                step="1"
+                (keydown.enter)="updateCurrentPoints(playerPointsForm.value.points)"
+                >
+                <mat-error *ngIf="playerPointsForm.get('points')?.hasError('invalidNumber')">Incorrect number</mat-error>
+                <mat-error *ngIf="playerPointsForm.get('points')?.hasError('wrongNumber')">Points must be in range 0..180!</mat-error>
+            </mat-form-field>
+        </ng-container>
+    </form> -->
     Average: <b>{{ averagePoints }}</b><br>
     <!-- Points: <ng-container *ngFor="let points of scoredPoints">
         {{ points }},
     </ng-container> -->
     <br>
+    <app-player-points></app-player-points>
 </div>
+
+<p *ngIf="isTurn" class="player-points">{{playerPoints}}</p>

@@ -8,3 +8,8 @@
 .points-input {
     /* border-bottom: 1px solid white; */
 }
+
+.player-points {
+    background-color: white;
+    font-size: 3em;
+}

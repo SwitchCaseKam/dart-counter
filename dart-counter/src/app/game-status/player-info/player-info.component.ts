@@ -7,6 +7,7 @@ import { selectGameStatus, State } from 'src/app/reducers';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
 import { GameStatusManagerService } from '../services/game-status-manager.service';
+import { KeyboardDataUpdaterService } from '../services/keyboard-data-updater.service';
 import { DoubleOutCombinations } from './double-out-combinations';
 
 @Component({
@@ -27,10 +28,13 @@ export class PlayerInfoComponent implements OnInit {
   public wasStarted: boolean = false;
   public isTurn: boolean = false;
 
+  public playerPoints: number = 0;
+
   constructor(
     private formBuilder: FormBuilder,
     private gameStore: Store<State>,
-    private gameStatusManagerService: GameStatusManagerService
+    private gameStatusManagerService: GameStatusManagerService,
+    private keyboardDataUpdaterService: KeyboardDataUpdaterService
   ) { }
 
   public ngOnInit(): void {
@@ -63,6 +67,8 @@ export class PlayerInfoComponent implements OnInit {
     this.gameStatusManagerService.getCurrentPlayerNameSubject().subscribe(
       (playerName: string) => this.isTurn = playerName === this.name ?  true : false
     );
+
+    this.keyboardDataUpdaterService.getPoints().subscribe(points => this.playerPoints = points)
   }
 
   public updateCurrentPoints(scoredPoints: number): void {
