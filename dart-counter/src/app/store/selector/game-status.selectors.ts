@@ -1,11 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { GameStatusState } from 'src/app/models/game-status.model';
 import * as fromGameStatus from '../reducer/game-status.reducer';
 
-export const selectGameState = createFeatureSelector<fromGameStatus.GameStatusState>(
+export const selectGameState = createFeatureSelector<GameStatusState>(
     fromGameStatus.gameStatusFeatureKey,
 );
 
 export const selectAllPlayers = createSelector(
     selectGameState,
-    (gameStatusState: fromGameStatus.GameStatusState) => gameStatusState.data
+    (gameStatusState: GameStatusState) => gameStatusState
 );

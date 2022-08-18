@@ -1,15 +1,15 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { GameConfig } from 'src/app/models/game-config.model';
+import { FinishMode } from 'src/app/game-config/models/game-configuration.models';
+import { GameConfigState } from 'src/app/models/game-config.model';
 import * as GameConfigActions from '../action/game-config.actions';
 
 export const gameConfigFeatureKey = 'gameConfig';
 
-export interface GameConfigState {
-  data: GameConfig
-}
-
 export const initialState: GameConfigState = {
-  data: new GameConfig()
+  points: 501,
+  legs:  { mode: FinishMode.FIRST_TO, value: 1 },
+  sets:  { mode: FinishMode.FIRST_TO, value: 1 },
+  players: []
 };
 
 export const gameConfigReducer = createReducer(
@@ -17,7 +17,10 @@ export const gameConfigReducer = createReducer(
   on(GameConfigActions.startGame,
     (gameConfigState: GameConfigState, {gameConfig}) => 
     ({...gameConfigState,
-      data: gameConfig
+      points: gameConfig.points,
+      legs: gameConfig.legs,
+      sets: gameConfig.sets,
+      players: gameConfig.players,
     })
   ),
 );

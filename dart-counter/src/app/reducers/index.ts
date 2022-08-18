@@ -6,8 +6,10 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { gameConfigReducer, GameConfigState } from '../store/reducer/game-config.reducer';
-import { gameStatusReducer, GameStatusState } from '../store/reducer/game-status.reducer';
+import { GameConfigState } from '../models/game-config.model';
+import { GameStatusState } from '../models/game-status.model';
+import { gameConfigReducer } from '../store/reducer/game-config.reducer';
+import { gameStatusReducer } from '../store/reducer/game-status.reducer';
 
 
 export interface State {

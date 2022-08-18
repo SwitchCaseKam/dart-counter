@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { Player } from 'src/app/models/game-status.model';
 import { selectGameStatus, State } from 'src/app/reducers';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
-import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
+// import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
 import { GameStatusManagerService } from '../services/game-status-manager.service';
 import { KeyboardDataUpdaterService } from '../services/keyboard-data-updater.service';
 import { DoubleOutCombinations } from './double-out-combinations';
@@ -38,63 +38,63 @@ export class PlayerInfoComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.playerPointsForm = this.createPlayerPointsForm();
-    this.gameStore.pipe(select(selectGameStatus)).pipe(
-      map((gameStatus: GameStatusState) => gameStatus.data.players),
-    ).subscribe(
-      (players: Player[]) => {
-        const player = players.find(p => p.name === this.name);
-        this.points = player?.currentPoints.toString();
-        this.legs = player?.legs.toString();
-        this.sets = player?.sets.toString();
-        this.averagePoints = player?.averagePoints3Darts?.toFixed(3);
-        this.scoredPoints = player?.scoredPoints;
-        this.doubleOutCombination = DoubleOutCombinations.get(Number(this.points));
-      });
+    // this.playerPointsForm = this.createPlayerPointsForm();
+    // this.gameStore.pipe(select(selectGameStatus)).pipe(
+    //   map((gameStatus: GameStatusState) => gameStatus.data.players),
+    // ).subscribe(
+    //   (players: Player[]) => {
+    //     const player = players.find(p => p.name === this.name);
+    //     this.points = player?.currentPoints.toString();
+    //     this.legs = player?.legs.toString();
+    //     this.sets = player?.sets.toString();
+    //     this.averagePoints = player?.averagePoints3Darts?.toFixed(3);
+    //     this.scoredPoints = player?.scoredPoints;
+    //     this.doubleOutCombination = DoubleOutCombinations.get(Number(this.points));
+    //   });
 
-    this.gameStatusManagerService.getPlayerNameWhoStartedSubject().subscribe(
-      (playerName: string) => {
-        if (playerName === this.name) {
-          console.log('playerName: ', playerName)
-          document.getElementById(`${this.name}-info-container`)?.focus()
-          this.wasStarted = true;
-        } else {
-          this.wasStarted = false;
-        }
-      }
-    )
+  //   this.gameStatusManagerService.getPlayerNameWhoStartedSubject().subscribe(
+  //     (playerName: string) => {
+  //       if (playerName === this.name) {
+  //         console.log('playerName: ', playerName)
+  //         document.getElementById(`${this.name}-info-container`)?.focus()
+  //         this.wasStarted = true;
+  //       } else {
+  //         this.wasStarted = false;
+  //       }
+  //     }
+  //   )
 
-    this.gameStatusManagerService.getCurrentPlayerNameSubject().subscribe(
-      (playerName: string) => this.isTurn = playerName === this.name ?  true : false
-    );
+  //   this.gameStatusManagerService.getCurrentPlayerNameSubject().subscribe(
+  //     (playerName: string) => this.isTurn = playerName === this.name ?  true : false
+  //   );
 
-    this.keyboardDataUpdaterService.getPoints().subscribe(points => this.playerPoints = points)
+  //   this.keyboardDataUpdaterService.getPoints().subscribe(points => this.playerPoints = points)
   }
 
-  public updateCurrentPoints(scoredPoints: number): void {
-    this.gameStatusManagerService.updatePlayerPoints(this.name, scoredPoints);
-  }
+  // public updateCurrentPoints(scoredPoints: number): void {
+  //   this.gameStatusManagerService.updatePlayerPoints(this.name, scoredPoints);
+  // }
 
-  private createPlayerPointsForm(): FormGroup {
-    return this.formBuilder.group({
-      points: ['', {
-        validators: [this.validatePoints()],
-        updateOn: 'change'
-      }]
-    });
-  }
+  // private createPlayerPointsForm(): FormGroup {
+  //   return this.formBuilder.group({
+  //     points: ['', {
+  //       validators: [this.validatePoints()],
+  //       updateOn: 'change'
+  //     }]
+  //   });
+  // }
 
-  private validatePoints(): ValidatorFn {
-    return (control: AbstractControl) => {
-      if(control.value?.toString().toLowerCase().includes('.')) {
-        control.setErrors({invalidNumber: true});
-        return {invalidNumber: true};
-      } else if(control.value > 180 || control.value < 0) {
-        control.setErrors({wrongNumber: true});
-        return {wrongNumber: true};
-      } else {
-        return null;
-      }
-    }
-  }
+  // private validatePoints(): ValidatorFn {
+  //   return (control: AbstractControl) => {
+  //     if(control.value?.toString().toLowerCase().includes('.')) {
+  //       control.setErrors({invalidNumber: true});
+  //       return {invalidNumber: true};
+  //     } else if(control.value > 180 || control.value < 0) {
+  //       control.setErrors({wrongNumber: true});
+  //       return {wrongNumber: true};
+  //     } else {
+  //       return null;
+  //     }
+  //   }
+  // }
 }

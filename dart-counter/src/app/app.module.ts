@@ -21,6 +21,11 @@ import { FooterComponent } from './common/footer/footer.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+      autoPause: true
+    }),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [],

@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as GameConfigurationConsts from './models/game-configuration.models';
-import { GameConfig } from '../models/game-config.model';
+import { GameConfigState } from '../models/game-config.model';
 import { debounceTime } from 'rxjs/operators';
 import { GameConfigManagerService } from './services/game-config-manager.service';
+import { State } from 'src/app/reducers';
+import { Store } from '@ngrx/store';
+import * as GameConfigActions from 'src/app/store/action/game-config.actions';
+import * as GameStatusActions from 'src/app/store/action/game-status.actions';
+
 
 @Component({
   selector: 'app-game-config',
@@ -16,20 +21,19 @@ export class GameConfigComponent implements OnInit {
   public points = GameConfigurationConsts.pointsMode;
   public legs = GameConfigurationConsts.legsMode;
   public sets = GameConfigurationConsts.setsMode;
-  private gameConfig: GameConfig = new GameConfig();
 
   constructor(
     private formBuilder: FormBuilder,
-    private gameConfigManagerService: GameConfigManagerService
+    private gameStore: Store<State>
   ) { }
 
   public ngOnInit(): void {
     this.configurationForm = this.createConfigurationForm();
-    this.subscribeToPlayersForm();
   }
 
   public submitGameConfig(): void {
-    this.gameConfigManagerService.setupGameConfig(this.gameConfig);
+    this.gameStore.dispatch(GameConfigActions.startGame(this.configurationForm.value));
+    this.gameStore.dispatch(GameStatusActions.createPlayers(this.configurationForm.value));
   }
 
   public addPlayer(event: Event): void {
@@ -54,9 +58,5 @@ export class GameConfigComponent implements OnInit {
     });
   }
 
-  private subscribeToPlayersForm(): void {
-    this.configurationForm.valueChanges.pipe(debounceTime(300),).subscribe(
-      gameConfigurationFormValue => { this.gameConfig = gameConfigurationFormValue as GameConfig;}
-    );
-  }
+
 }

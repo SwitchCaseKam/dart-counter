@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GameConfig } from 'src/app/models/game-config.model';
+import { FinishMode, PointsMode } from 'src/app/game-config/models/game-configuration.models';
+import { GameConfigState } from 'src/app/models/game-config.model';
 import { State, selectGameConfig } from 'src/app/reducers';
 
 @Component({
@@ -12,7 +13,9 @@ import { State, selectGameConfig } from 'src/app/reducers';
 })
 export class GameInfoBarComponent implements OnInit, OnDestroy {
 
-  public gameConfig: GameConfig = new GameConfig();
+  public points: number = 0;
+  public legs: PointsMode =  { mode: FinishMode.FIRST_TO, value: 1 };
+  public sets:  PointsMode =  { mode: FinishMode.FIRST_TO, value: 1 };
   private gameConfigSubscription: Subscription = new Subscription();
 
   constructor(
@@ -28,8 +31,12 @@ export class GameInfoBarComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToGameConfig(): void {
-    this.gameConfigSubscription = this.gameStore.pipe(select(selectGameConfig)).pipe(map(gameConfig => gameConfig.data)).subscribe(
-      (gameConfig: GameConfig) => this.gameConfig = gameConfig
+    this.gameConfigSubscription = this.gameStore.pipe(select(selectGameConfig)).subscribe(
+      (gameConfig: GameConfigState) => {
+        this.points = gameConfig.points;
+        this.legs = gameConfig.legs;
+        this.sets = gameConfig.sets;
+      }
     );
   }
 

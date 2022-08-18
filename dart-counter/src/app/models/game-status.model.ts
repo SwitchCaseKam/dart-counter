@@ -1,25 +1,29 @@
-export class Player {
-    public name: string;
-    public currentPoints: number;
-    public legs: number;
-    public sets: number;
-    public scoredPoints: number[];
-    public averagePoints1Dart: number = 0;
-    public averagePoints3Darts: number = 0;
-
-    constructor(name: string, currentPoints: number, legs: number = 0, sets: number = 0, scoredPoints: number[] = []) {
-        this.name = name;
-        this.currentPoints = currentPoints;
-        this.legs = legs;
-        this.sets = sets;
-        this.scoredPoints = scoredPoints;
-    }
+export interface Player {
+    name: string;
+    currentPoints: number;
+    legs: number;
+    sets: number;
+    scoredPoints: number[];
+    averagePoints1Dart: number;
+    averagePoints3Darts: number;
+    toThrow: boolean;
+    toStart: boolean;
 }
 
-export class GameStatus {
+export interface GameStatusState {
     players: Player[]
+}
 
-    constructor(ps: Player[] = []) {
-        this.players = ps;
-    }
+export function createInitPlayer(name: string, points: number): Player {
+    return {
+        name: name,
+        currentPoints: points,
+        legs: 0,
+        sets: 0,
+        scoredPoints: [],
+        averagePoints1Dart: 0,
+        averagePoints3Darts: 0,
+        toThrow: false,
+        toStart: false
+    };
 }

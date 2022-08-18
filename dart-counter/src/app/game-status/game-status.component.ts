@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Player } from '../models/game-status.model';
-import { selectGameStatus, State } from '../reducers';
-import { GameStatusState } from '../store/reducer/game-status.reducer';
 import { map } from 'rxjs/operators';
+import { GameStatusState, Player } from '../models/game-status.model';
+import { selectGameStatus, State } from '../reducers';
 
 @Component({
   selector: 'app-game-status',
@@ -24,11 +23,10 @@ export class GameStatusComponent implements OnInit {
 
   public getPlayersStatus(): void {
     this.gameStore.pipe(select(selectGameStatus)).pipe(
-      map((gameStatus: GameStatusState) => gameStatus.data.players)
+      map((gameStatus: GameStatusState) => gameStatus.players)
     ).subscribe(
-      (players: Player[]) => {
-        this.playersStatus = players;
-      });
+      (players) => this.playersStatus = players
+    );
   }
 
 }
