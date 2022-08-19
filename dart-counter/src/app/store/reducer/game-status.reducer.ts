@@ -18,12 +18,22 @@ export const gameStatusReducer = createReducer(
       players: createPlayers(gameConfig)
     })
   ),
-  // on(GameStatusActions.updatePlayerPoints,
-  //   (gameStatusState: GameStatusState, {name, points}) => 
-  //   ({...gameStatusState,
-  //     data: updatePlayerPointsAndUpdateStore(name, points, gameStatusState)
-  //   })
-  // ),
+  on(GameStatusActions.updatePlayerPoints,
+    (gameStatusState: GameStatusState, {name, points}) => //{
+      ({...gameStatusState,
+        players: updatePlayerPointsAndUpdateStore(name, points, gameStatusState.players)
+      })
+
+      // const playerIndex = gameStatusState.players.findIndex(p => p.name === name);
+      // gameStatusState.players[playerIndex].currentPoints -= points;
+      // gameStatusState.players[playerIndex].toThrow = false;
+      // return gameStatusState;
+      
+    // }
+    // ({...gameStatusState,
+    //   players: updatePlayerPointsAndUpdateStore(name, points, gameStatusState)
+    // }
+  ),
   // on(GameStatusActions.resetPlayersPoints,
   //   (gameStatusState: GameStatusState, {gameConfig}) => 
   //   ({...gameStatusState,
@@ -51,27 +61,35 @@ function createPlayers(gameConfig: GameConfigState): Player[] {
   );
   playersInGame[0].toStart = true;
   playersInGame[0].toThrow = true;
+
   return playersInGame;
 }
 
-// function updatePlayerPointsAndUpdateStore(name: string, points: number, gameStatusState: GameStatusState): GameStatus {
-//   return new GameStatus(
-//     gameStatusState?.data?.players.map(
-//       player => {
-//         if (player.name === name) {
-//           const newPoints = points < player.currentPoints - 1 ? player.currentPoints - points : player.currentPoints;
-//           const scoredPoints = (points + 1 < player.currentPoints || points === player.currentPoints) ? points : 0;
-//           return {
-//             ...player,
-//             currentPoints: newPoints,
-//             scoredPoints: [...player.scoredPoints, scoredPoints],
-//           };
-//         }
-//         return player;
-//       }
-//     )
-//   );
-// }
+function updatePlayerPointsAndUpdateStore(name: string, points: number, players: Player[]): Player[] {
+  const currentPlayerIndex = players.findIndex(p => p.name === name);
+  const nextPlayerIndex = (currentPlayerIndex+1) % players.length;
+  console.log('to thorw last: ', currentPlayerIndex, ' next to throw: ', nextPlayerIndex);
+  return players.map(
+      (player, i) => {
+        if (i === currentPlayerIndex) {
+          const newPoints = points < player.currentPoints - 1 ? player.currentPoints - points : player.currentPoints;
+          const scoredPoints = (points + 1 < player.currentPoints || points === player.currentPoints) ? points : 0;
+          return {
+            ...player,
+            currentPoints: newPoints,
+            scoredPoints: [...player.scoredPoints, scoredPoints],
+            toThrow: false
+          };
+        } else if (i === nextPlayerIndex) {
+          return {
+            ...player,
+            toThrow: true
+          }
+        }
+        return player;
+      }
+    );
+}
 
 // function calculateAveragePointsForPlayerAndUpdateStore(name: string, gameStatusState: GameStatusState): GameStatus {
 //   return new GameStatus(

@@ -1,12 +1,16 @@
 .players-list {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around; 
+    /* flex-direction: row;
+    justify-content: center;  */
 }
 
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
     .players-list {
       flex-direction: column;
     }
+  } */
+
+  .players-list__single-item {
+    flex-grow: 1;
   }

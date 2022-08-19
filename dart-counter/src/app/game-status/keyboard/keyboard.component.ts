@@ -26,17 +26,15 @@ export class KeyboardComponent implements OnInit {
     switch(buttonNum) {
       case '<-':
         this.currentPoints = this.currentPoints.slice(0, -1);
-        this.keyboardDataUpdaterService.setPoints(this.currentPoints);
         break;
       case '->':
         console.log('passed to store', this.currentPoints);
         this.currentPoints = '';
-        this.keyboardDataUpdaterService.setPoints(this.currentPoints);
         break;
       default:
         this.currentPoints += buttonNum;
-        this.keyboardDataUpdaterService.setPoints(this.currentPoints);
     }
+    this.keyboardDataUpdaterService.setPoints(this.currentPoints);
   }
 
 

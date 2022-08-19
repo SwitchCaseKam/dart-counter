@@ -1,14 +1,8 @@
 <app-game-info-bar></app-game-info-bar>
-<br>
+
 <div class="players-list">
-    <div *ngFor="let player of playersStatus">
-        <app-player-info
-            name="{{player.name}}"
-            sets="{{player.sets}}"
-            legs="{{player.legs}}"
-            points={{player.currentPoints}}
-        ></app-player-info>
-        <br>
+    <div class="players-list__single-item" *ngFor="let player of allPlayersStatus">
+        <app-player-info [playerData]="player"></app-player-info>
     </div>
 </div>
 

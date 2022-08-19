@@ -11,7 +11,7 @@ import { selectGameStatus, State } from '../reducers';
 })
 export class GameStatusComponent implements OnInit {
 
-  public playersStatus: Player[] = [];
+  public allPlayersStatus: Player[] = [];
 
   constructor(
     private gameStore: Store<State>
@@ -25,7 +25,7 @@ export class GameStatusComponent implements OnInit {
     this.gameStore.pipe(select(selectGameStatus)).pipe(
       map((gameStatus: GameStatusState) => gameStatus.players)
     ).subscribe(
-      (players) => this.playersStatus = players
+      (players: Player[]) => this.allPlayersStatus = players
     );
   }
 

@@ -17,11 +17,6 @@ export class GameStatusManagerService {
   // private gameConfig: GameConfig = new GameConfig();
   // private gameStatus: GameStatus = new GameStatus();
 
-  private playerNameWhoStarted: string = '';
-  private playerNameWhoStartedSubject = new BehaviorSubject<string>(this.playerNameWhoStarted);
-  private currentPlayerName: string = '';
-  private currentPlayerNameSubject = new BehaviorSubject<string>(this.currentPlayerName);
-
   constructor(
     private gameStore: Store<State>
   ) { 
@@ -39,12 +34,12 @@ export class GameStatusManagerService {
     //   });
   }
 
-  // public updatePlayerPoints(playerName: string, scoredPoints: number): void {
+  public updatePlayerPoints(playerName: string, scoredPoints: number): void {
   //   if (!Number.isInteger(scoredPoints) || scoredPoints > 180 || scoredPoints < 0) { return; }
   //   const currentPlayer = this.gameStatus.players.find(pl => pl.name === playerName);
   //   const currentPlayerIndex = currentPlayer ? this.gameStatus.players.indexOf(currentPlayer) : 0; 
   //   console.log('currentPlayerIndex : ', )
-  //   this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(playerName, scoredPoints));
+    // this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(playerName, scoredPoints));
     
   //   if (currentPlayer && (currentPlayer.currentPoints - scoredPoints === 0)) {
   //     this.gameStore.dispatch(GameStatusActions.updatePlayerLegs(playerName, 1));
@@ -59,7 +54,7 @@ export class GameStatusManagerService {
   //   this.currentPlayerName = this.gameStatus.players[(currentPlayerIndex+1)%this.gameStatus.players.length].name;
   //   this.currentPlayerNameSubject.next(this.currentPlayerName);
   //   this.gameStore.dispatch(GameStatusActions.calculatePlayerAveragePoints(playerName));
-  // }
+  }
 
   // public getPlayerNameWhoStartedSubject(): Observable<string> {
   //   return this.playerNameWhoStartedSubject;

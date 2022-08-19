@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { filter, map } from 'rxjs/operators';
-import { Player } from 'src/app/models/game-status.model';
+import { createInitPlayer, Player } from 'src/app/models/game-status.model';
 import { selectGameStatus, State } from 'src/app/reducers';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 // import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
@@ -17,18 +17,9 @@ import { DoubleOutCombinations } from './double-out-combinations';
 })
 export class PlayerInfoComponent implements OnInit {
 
-  @Input() public name: string = '';
-  @Input() public points: string | undefined = '';
-  @Input() public sets: string | undefined= '';
-  @Input() public legs: string | undefined = '';
-  public playerPointsForm: FormGroup = new FormGroup({});
-  public doubleOutCombination: string | undefined = '';
-  public averagePoints: string | undefined = '0';
-  public scoredPoints: number[] | undefined = [];
-  public wasStarted: boolean = false;
-  public isTurn: boolean = false;
+  @Input() public playerData: Player = createInitPlayer('', 501);
 
-  public playerPoints: number = 0;
+  public scoredPoints: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +29,7 @@ export class PlayerInfoComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    // setTimeout(() => console.log(this.playerData), 1000)
     // this.playerPointsForm = this.createPlayerPointsForm();
     // this.gameStore.pipe(select(selectGameStatus)).pipe(
     //   map((gameStatus: GameStatusState) => gameStatus.data.players),
@@ -68,12 +60,13 @@ export class PlayerInfoComponent implements OnInit {
   //     (playerName: string) => this.isTurn = playerName === this.name ?  true : false
   //   );
 
-  //   this.keyboardDataUpdaterService.getPoints().subscribe(points => this.playerPoints = points)
+    this.keyboardDataUpdaterService.getPoints().subscribe(scoredPoints => this.scoredPoints = scoredPoints)
   }
 
-  // public updateCurrentPoints(scoredPoints: number): void {
-  //   this.gameStatusManagerService.updatePlayerPoints(this.name, scoredPoints);
-  // }
+  public updateCurrentPoints(): void {
+    console.log('ok clicked')
+    this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.playerData.name, this.scoredPoints));
+  }
 
   // private createPlayerPointsForm(): FormGroup {
   //   return this.formBuilder.group({

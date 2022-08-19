@@ -13,3 +13,8 @@
     width: 64px;
     height: 64px;
 }
+
+a {
+    text-decoration:none;
+    color: chartreuse;
+}
