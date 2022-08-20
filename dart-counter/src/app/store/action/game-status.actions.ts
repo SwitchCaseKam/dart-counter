@@ -7,7 +7,7 @@ export const loadGameStatus = createAction(`${actionPrefix} Load GameStatus`);
 
 export const createPlayers = createAction(`${actionPrefix} Create players in game`, (gameConfig: GameConfigState) => ({gameConfig}));
 
-export const updatePlayerPoints = createAction(`${actionPrefix} Update player points`, (name: string, points: number) => ({name, points}));
+export const updatePlayerPoints = createAction(`${actionPrefix} Update player points`, (name: string, points: number, gameConfig: GameConfigState) => ({name, points, gameConfig}));
 
 export const updatePlayerSets = createAction(`${actionPrefix} Update player sets`, (name: string, sets: number) => ({name, sets}));
 

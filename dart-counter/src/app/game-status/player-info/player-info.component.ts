@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { filter, map } from 'rxjs/operators';
-import { createInitPlayer, Player } from 'src/app/models/game-status.model';
-import { selectGameStatus, State } from 'src/app/reducers';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { GameConfigState } from 'src/app/models/game-config.model';
+import { createInitPlayer, GameStatusState, Player } from 'src/app/models/game-status.model';
+import { selectGameConfig, selectGameStatus, State } from 'src/app/reducers';
 import * as GameStatusActions from 'src/app/store/action/game-status.actions';
 // import { GameStatusState } from 'src/app/store/reducer/game-status.reducer';
 import { GameStatusManagerService } from '../services/game-status-manager.service';
@@ -20,6 +21,8 @@ export class PlayerInfoComponent implements OnInit {
   @Input() public playerData: Player = createInitPlayer('', 501);
 
   public scoredPoints: number = 0;
+  private gameConfig: GameConfigState | undefined = undefined;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,18 +34,22 @@ export class PlayerInfoComponent implements OnInit {
   public ngOnInit(): void {
     // setTimeout(() => console.log(this.playerData), 1000)
     // this.playerPointsForm = this.createPlayerPointsForm();
-    // this.gameStore.pipe(select(selectGameStatus)).pipe(
-    //   map((gameStatus: GameStatusState) => gameStatus.data.players),
-    // ).subscribe(
-    //   (players: Player[]) => {
-    //     const player = players.find(p => p.name === this.name);
-    //     this.points = player?.currentPoints.toString();
-    //     this.legs = player?.legs.toString();
-    //     this.sets = player?.sets.toString();
-    //     this.averagePoints = player?.averagePoints3Darts?.toFixed(3);
-    //     this.scoredPoints = player?.scoredPoints;
-    //     this.doubleOutCombination = DoubleOutCombinations.get(Number(this.points));
-    //   });
+    this.gameStore.pipe(
+      select(selectGameConfig),
+    ).subscribe(
+      gameConfig => this.gameConfig = gameConfig
+    );
+
+    this.gameStore.pipe(select(selectGameStatus)).pipe(
+      map((gameStatus: GameStatusState) => gameStatus.players),
+    ).subscribe(
+      (players: Player[]) => {
+        if (players.some(p => p.currentPoints === 0)) {
+          if (this.gameConfig) {
+            this.gameStore.dispatch(GameStatusActions.resetPlayersPoints(this.gameConfig));
+          }
+        }
+    });
 
   //   this.gameStatusManagerService.getPlayerNameWhoStartedSubject().subscribe(
   //     (playerName: string) => {
@@ -65,7 +72,10 @@ export class PlayerInfoComponent implements OnInit {
 
   public updateCurrentPoints(): void {
     console.log('ok clicked')
-    this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.playerData.name, this.scoredPoints));
+    if(this.gameConfig) {
+
+      this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.playerData.name, this.scoredPoints, this.gameConfig));
+    }
   }
 
   // private createPlayerPointsForm(): FormGroup {

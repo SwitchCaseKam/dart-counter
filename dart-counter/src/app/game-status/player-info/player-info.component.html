@@ -13,22 +13,8 @@
         <!-- {{doubleOutCombination}} -->
         <p>Legs: {{ playerData.legs }}</p>
         <p>Sets: {{ playerData.sets }}</p>
-        <!-- <form [formGroup]="playerPointsForm">
-            <ng-container *ngIf="isTurn">
-                <mat-form-field>
-                    <input 
-                    class="points-input" 
-                    placeholder="Enter score"
-                    matInput type="number"
-                    formControlName="points"
-                    step="1"
-                    (keydown.enter)="updateCurrentPoints(playerPointsForm.value.points)"
-                    >
-                    <mat-error *ngIf="playerPointsForm.get('points')?.hasError('invalidNumber')">Incorrect number</mat-error>
-                    <mat-error *ngIf="playerPointsForm.get('points')?.hasError('wrongNumber')">Points must be in range 0..180!</mat-error>
-                </mat-form-field>
-            </ng-container>
-        </form> -->
+        <p>Avg: {{ playerData.averagePoints3Darts }}</p>
+
         <!-- Average: <b>{{ averagePoints }}</b><br> -->
         <!-- Points: <ng-container *ngFor="let points of scoredPoints">
             {{ points }},
