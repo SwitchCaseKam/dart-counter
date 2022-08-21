@@ -5,6 +5,7 @@ import { createInitPlayer, GameStatusState, Player } from 'src/app/models/game-s
 import * as GameStatusActions from '../action/game-status.actions';
 
 export const gameStatusFeatureKey = 'gameStatus';
+let singleGameFinishedFlag : boolean = false;
 
 export const initialState: GameStatusState = {
   players: []
@@ -59,17 +60,17 @@ function updatePlayerPointsAndUpdateStore(name: string, points: number, players:
   if ( points > 180 || points < 0) { return players; }
   const currentPlayerIndex = players.findIndex(p => p.name === name);
   const nextPlayerIndex = (currentPlayerIndex+1) % players.length;
-  let singleGameFinishedFlag : boolean = false;
-
-  return players.map(
+  // let singleGameFinishedFlag : boolean = false;
+  console.log('players = ', players)
+  console.log("updatePlayerPointsAndUpdateStore called with params: ", name, points)
+  const a = players.map(
       (player, i) => {
-        console.log('player name = ', player.name)
         if (i === currentPlayerIndex) {
-          
           if (player.currentPoints === points) {
             singleGameFinishedFlag = true;
             return {
               ...player,
+              currentPoints: configPointsMode,
               scoredPoints: [...player.scoredPoints, points],
               legs: player.legs + 1,
               toThrow: false
@@ -89,14 +90,31 @@ function updatePlayerPointsAndUpdateStore(name: string, points: number, players:
             currentPoints: singleGameFinishedFlag ? configPointsMode : player.currentPoints,
             toThrow: true
           }
+        } else {
+          return {
+            ...player,
+            currentPoints: singleGameFinishedFlag ? configPointsMode : player.currentPoints
+          };  
         }
-        return {
-          ...player,
-          currentPoints: singleGameFinishedFlag ? configPointsMode : player.currentPoints
-        };
+
       }
     );
-    // return players;
+    return a.map((p, i) => {
+      const startPlayerIndex = players.findIndex(p => p.toStart);
+      console.log('startPlayerIndex = ', startPlayerIndex)
+      const nextStartPlayerIndex = (startPlayerIndex+1) % players.length;
+      const a = {
+        ...p,
+        currentPoints: singleGameFinishedFlag ? configPointsMode : p.currentPoints,
+        // toStart: singleGameFinishedFlag && i === nextStartPlayerIndex ? true: false
+      }; 
+      if (singleGameFinishedFlag && i === nextStartPlayerIndex) {
+        a.toStart = true;
+      } 
+      singleGameFinishedFlag = false;
+      return a;
+    });
+
 }
 
 // function calculateAveragePointsForPlayerAndUpdateStore(name: string, gameStatusState: GameStatusState): GameStatus {

@@ -9,9 +9,13 @@
     justify-content: center;
 }
 
-.header-logo {
-    width: 64px;
-    height: 64px;
+.header__logo {
+    width: 48px;
+    height: 48px;
+}
+
+.header__title {
+    font-size: 1.5em;
 }
 
 a {

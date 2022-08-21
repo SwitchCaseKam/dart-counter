@@ -2,8 +2,11 @@
 
 <div class="players-list">
     <div class="players-list__single-item" *ngFor="let player of allPlayersStatus">
-        <app-player-info [playerData]="player"></app-player-info>
+        <app-player-info 
+            [playerData]="player"
+            [updatePointsFlag]="updatePoints"
+            ></app-player-info>
     </div>
 </div>
 
-<app-keyboard></app-keyboard>
+<app-keyboard (passDataEvent)="passDataEvent($event)"></app-keyboard>

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { GameConfigState } from 'src/app/models/game-config.model';
 import { createInitPlayer, GameStatusState, Player } from 'src/app/models/game-status.model';
 import { selectGameConfig, selectGameStatus, State } from 'src/app/reducers';
@@ -16,9 +16,10 @@ import { DoubleOutCombinations } from './double-out-combinations';
   templateUrl: './player-info.component.html',
   styleUrls: ['./player-info.component.css']
 })
-export class PlayerInfoComponent implements OnInit {
+export class PlayerInfoComponent implements OnInit, OnChanges {
 
   @Input() public playerData: Player = createInitPlayer('', 501);
+  @Input() public updatePointsFlag: boolean = false;
 
   public scoredPoints: number = 0;
   private gameConfig: GameConfigState | undefined = undefined;
@@ -32,50 +33,62 @@ export class PlayerInfoComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    // setTimeout(() => console.log(this.playerData), 1000)
-    // this.playerPointsForm = this.createPlayerPointsForm();
     this.gameStore.pipe(
       select(selectGameConfig),
+      tap(gameConfig => this.gameConfig = gameConfig),
+      switchMap(() => this.gameStore.pipe(select(selectGameStatus))),
+      tap(d => {
+        const player = d.players!.find(p => p.name === this.playerData.name);
+        if (player) { this.playerData = player;}
+      }),
+      switchMap(() => this.keyboardDataUpdaterService.getPoints())
     ).subscribe(
-      gameConfig => this.gameConfig = gameConfig
+      scoredPoints => {
+        this.scoredPoints = scoredPoints;
+        console.log('scoredPoints in player', this.playerData.name, ' : ', scoredPoints);
+        if (this.gameConfig && this.playerData.toThrow) {
+          
+          console.log(this.playerData.name, this.playerData.toThrow)
+          this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.playerData.name, this.scoredPoints, this.gameConfig));
+          console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+        }
+      }
     );
 
-    this.gameStore.pipe(select(selectGameStatus)).pipe(
-      map((gameStatus: GameStatusState) => gameStatus.players),
-    ).subscribe(
-      (players: Player[]) => {
-        if (players.some(p => p.currentPoints === 0)) {
-          if (this.gameConfig) {
-            this.gameStore.dispatch(GameStatusActions.resetPlayersPoints(this.gameConfig));
-          }
-        }
-    });
+    // setInterval(() => console.log('[XX] current value input : ', this.updatePointsFlag), 1000)
 
-  //   this.gameStatusManagerService.getPlayerNameWhoStartedSubject().subscribe(
-  //     (playerName: string) => {
-  //       if (playerName === this.name) {
-  //         console.log('playerName: ', playerName)
-  //         document.getElementById(`${this.name}-info-container`)?.focus()
-  //         this.wasStarted = true;
-  //       } else {
-  //         this.wasStarted = false;
-  //       }
-  //     }
-  //   )
-
-  //   this.gameStatusManagerService.getCurrentPlayerNameSubject().subscribe(
-  //     (playerName: string) => this.isTurn = playerName === this.name ?  true : false
-  //   );
-
-    this.keyboardDataUpdaterService.getPoints().subscribe(scoredPoints => this.scoredPoints = scoredPoints)
+    // this.keyboardDataUpdaterService.getPoints().subscribe(
+    //   scoredPoints => {
+    //     this.scoredPoints = scoredPoints
+    //     console.log('scoredPoints in player', this.playerData.name, ' : ', scoredPoints);
+    //     // if (this.keyboardDataUpdaterService.getShouldPassDataFlag()) {
+    //     //   if(this.gameConfig && this.playerData.toThrow) {
+    //     //     console.log('update points action will be send', this.playerData.name, scoredPoints)
+    //     //     this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.playerData.name, scoredPoints, this.gameConfig));
+    //     //   }
+    //     // }
+    //   }
+    // );
   }
 
-  public updateCurrentPoints(): void {
-    console.log('ok clicked')
-    if(this.gameConfig) {
+  public ngOnChanges(): void {
+    console.log('XXXXX: ', this.playerData.name, this.updatePointsFlag)
+    // if(this.gameConfig && this.playerData.toThrow) {
+    //   console.log('update points action will be send')
+    //   this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.playerData.name, this.scoredPoints, this.gameConfig));
+    // }
+    // // this.updateCurrentPoints();
 
+  }
+
+  public updateCurrentPoints(event: Event): void {
+    event.preventDefault();
+    console.log('ok clicked');
+    if(this.gameConfig && this.playerData.toThrow) {
+      console.log('update points action will be send FROM OK button')
       this.gameStore.dispatch(GameStatusActions.updatePlayerPoints(this.playerData.name, this.scoredPoints, this.gameConfig));
     }
+    // this.updatePointsFlag = false
   }
 
   // private createPlayerPointsForm(): FormGroup {

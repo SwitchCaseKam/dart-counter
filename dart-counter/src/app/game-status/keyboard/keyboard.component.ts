@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { KeyboardDataUpdaterService } from '../services/keyboard-data-updater.service';
 
 @Component({
@@ -14,8 +14,11 @@ export class KeyboardComponent implements OnInit {
     '1', '2', '3',
     '4', '5', '6',
     '7', '8', '9',
-    '<-', '0', '->'
+    'CLR', '0', '>>'
   ];
+  
+  @Output()
+  private passDataEvent = new EventEmitter()
 
   constructor(private keyboardDataUpdaterService: KeyboardDataUpdaterService) { }
 
@@ -24,19 +27,16 @@ export class KeyboardComponent implements OnInit {
 
   public clickButton(buttonNum: string): void {
     switch(buttonNum) {
-      case '<-':
+      case 'CLR':
         this.currentPoints = this.currentPoints.slice(0, -1);
         break;
-      case '->':
+      case '>>':
         console.log('passed to store', this.currentPoints);
+        this.keyboardDataUpdaterService.setPoints(this.currentPoints);
         this.currentPoints = '';
         break;
       default:
         this.currentPoints += buttonNum;
     }
-    this.keyboardDataUpdaterService.setPoints(this.currentPoints);
   }
-
-
-
 }
